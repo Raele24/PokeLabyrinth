@@ -1,0 +1,55 @@
+{
+    "name": "pokelabyrinth",
+    "version": "0.0.1",
+    "description": "",
+    "author": "Raele",
+    "main": "app.js",
+    "scripts": {
+      "start": "electron .",
+      "build": "electron-builder",
+      "release": "electron-builder -p always"
+    },
+    "repository": "",
+    "publish": {
+      "provider": "github",
+      "releaseType": "release",
+      "owner": "Raele",
+      "repo": "pokelabyrinth"
+    },
+    "build": {
+      "artifactName": "pokelabyrinth-setup-${version}.${ext}",
+      "appId": "org.example.pokelabyrinth",
+      "productName": "pokelabyrinth",
+      "win": {
+        "target": [
+          "nsis"
+        ],
+        "icon": "src/assets/favicon/logo.ico",
+        "publisherName": "Raele",
+        "verifyUpdateCodeSignature": false
+      },
+      "nsis": {
+        "installerIcon": "src/assets/favicon/logoinstaller.ico",
+        "uninstallerIcon": "src/assets/favicon/logo.ico",
+        "uninstallDisplayName": "pokelabyrinth_UNINSTALLER",
+        "oneClick": false,
+        "allowToChangeInstallationDirectory": true,
+        "createDesktopShortcut": true,
+        "createStartMenuShortcut": true,
+        "shortcutName": "pokelabyrinth",
+        "runAfterFinish": true,
+        "license": "LICENSE.txt"
+      }
+    },
+    "license": "ISC",
+    "devDependencies": {
+      "electron": "^27.0.1",
+      "electron-builder": "^24.6.4",
+      "electron-reloader": "^1.2.3"
+    },
+    "dependencies": {
+      "electron-log": "^5.0.1",
+      "electron-updater": "^6.1.4",
+      "discord-rpc": "^4.0.1"
+    }
+}

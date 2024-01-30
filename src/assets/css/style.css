@@ -1,0 +1,368 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background: rgb(123, 9, 9);
+  animation: colorChange 80s infinite linear;
+  background-image: url(../images/container_bg.png);
+}
+
+@keyframes colorChange {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+
+.container {
+  width: 100%;
+  max-width: 80%;
+  margin: 20 auto 20 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.75);
+  background-image: url(../images/container_bg.png);
+  border-radius: 15px;
+}
+
+.title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 34px;
+  font-family: 'Pokemon Solid', sans-serif;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+ 
+}
+
+.title h1 {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 9px;
+  background: -webkit-linear-gradient(#ff0000, #ff5252);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.377);
+}
+
+
+
+
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 80%;
+  padding: 0 20px;
+  justify-content: right;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.left{
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.right{
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.selectGen {
+  background-color: #313131;
+  color: white;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 10px;
+  border-radius: 10px;
+  float: right;
+  margin-left: 1%;
+}
+
+.region{
+  background-color: #313131;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Ubuntu', sans-serif;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+  float: left;
+  margin-right: 1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.region img{
+  width: 100%;
+  height: 100%;
+  margin-right: 10px;
+}
+
+
+
+.pokeList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 80%;
+  padding: 0 20px;
+}
+
+.singlePokemon {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+  background-color: #e0d9d9;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f1ececef;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: 0.5s ease;
+}
+
+.singlePokemon:hover .overlay {
+  height: 100%;
+}
+
+.description {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  width: 100%;
+  text-align: center;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  font-family: 'Kanit', sans-serif;
+  margin-bottom: 20%;
+}
+
+.id {
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #a69a9a86;
+  border-radius: 5px;
+  padding: 5px;
+  width: fit-content;
+  margin: 0 auto 0 auto;
+
+}
+
+.type {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-family: 'Ubuntu', sans-serif;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+/* details page */
+
+.name-title{
+  font-size: 34px;
+  font-weight: 600;
+  font-family: 'Kanit', sans-serif;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;  
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+}
+
+.name-title p{
+  color: #313131;
+}
+
+.name-title span{
+  margin-left: 10px;
+  color: #5c555586;
+}
+
+.general{
+  height: 600px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.general .left-side{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+}
+
+.general .right-side{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  float: right;
+}
+
+.left-side .img{
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/pokedex/gen1/006.png);
+  background-size:cover;
+  background-repeat: no-repeat;
+}
+
+.right-side .types{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  height: 20%;
+}
+
+.right-side .types .pk-type{
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-family: 'Ubuntu', sans-serif;
+  border-radius: 32px;
+  padding: 22px;
+  background-color: #313131;
+}
+
+
+.right-side .changing{
+
+  height: 80%;
+  width: 100%;
+  perspective: 1000px;
+}
+
+.right-side .changing .inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.right-side .changing:hover .inner {
+  transform: rotateY(180deg);
+}
+
+.right-side .changing .info-list, .right-side .changing .description{
+  background-color: #313131;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  color: white;
+  border-radius: 10px;
+}
+
+.right-side .changing .description{
+  transform: rotateY(180deg);
+  top: 0;
+  left: 0;
+}
+
+.stats{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  color: #313131;
+  margin-bottom: 2%;
+}
+
+.gradient-bar {
+  width: 100%;
+  height: 20px; /* Altezza della barra */
+  background: linear-gradient(to right, 
+    rgb(0, 0, 0) 0%,        /* Colore al 0% (valore minimo) */
+    rgb(0, 0, 255) 100%      /* Colore al 100% (valore massimo) */
+  );
+}
+
+
+.evo-line{
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #313131;
+  background-image: url(../images/container_bg.png);
+  padding: 10px;
+}
+
+.evo-line svg {
+  width: 100px;
+  height: 100px;
+}
+
+.evo p{
+  font-size: 24px;
+  font-weight: 600;
+  font-family: 'Kanit', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.evo img{
+  background-color: #313131;
+  border-radius: 20px;
+  border: #000 solid 15px;
+}
