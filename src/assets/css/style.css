@@ -261,7 +261,6 @@ body {
 .left-side .img{
   width: 100%;
   height: 100%;
-  background-image: url(../images/pokedex/gen1/006.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

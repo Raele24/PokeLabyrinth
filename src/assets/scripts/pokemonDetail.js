@@ -8,6 +8,7 @@ async function checkPokemonPresence(){
     }
     else{
         const pokemon = await loadPokemonDetail(id);
+        console.log(pokemon);
         createDetailPage(pokemon);
         localStorage.removeItem("pokemonId");
     }
@@ -26,15 +27,36 @@ function goToLabyrinth(){
 }   
 
 function createDetailPage(pokemon){
-    //name
+    //name------------------------------
     let title = document.getElementById("name-title");
     let name = document.getElementById("name");
     let id = document.getElementById("id");
     let p = document.createElement("p");
     let span = document.createElement("span");
-    p.innerHTML = pokemon.name;
-    span.innerHTML = "N° "+ pokemon.id;
+    let fullName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    p.innerHTML = fullName;
+    if(pokemon.id < 10) span.innerHTML = "N° 00"+ pokemon.id;
+    else if(pokemon.id < 100) span.innerHTML = "N° 0"+ pokemon.id;
+    else span.innerHTML = "N° "+ pokemon.id;
     title.appendChild(p);
     title.appendChild(span);
+
+    //image-----------------------------
+    let left_side = document.getElementById("left-side");
+    let image = document.createElement("div");
+    image.className = "img";
+    image.style.backgroundImage = "url("+pokemon.image+")";
+    left_side.appendChild(image);
+
+    //types-----------------------------
+    let types = document.getElementById("types");
+    for(let i = 0; i < pokemon.types.length; i++){
+        let typesTitle = document.createElement("p");
+        typesTitle.className = "pk-type";
+        typesTitle.innerHTML = pokemon.types[i];
+        types.appendChild(typesTitle);
+        typesTitle.style.backgroundColor = typeColors[pokemon.types[i]];
+    }
+
 
 }
