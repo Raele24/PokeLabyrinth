@@ -28,7 +28,7 @@ function loadPokemon() {
   let gen = selectedGen.value;
   let genName = generationsNames[gen];
   let imgRegion = document.createElement("img");
-  imgRegion.src = "../src/assets/images/regions/" + generationsRegions[gen] + ".png";
+  imgRegion.src = "./assets/images/regions/" + generationsRegions[gen] + ".png";
   region.appendChild(imgRegion);
   let nameRegion = document.createElement("h3");
   nameRegion.innerHTML = generationsRegions[gen];
@@ -56,7 +56,7 @@ function loadPokemon() {
     overlay.className = "overlay";
 
     let imgElement = document.createElement("img");
-    imgElement.src = "../src/assets/images/pokedex/" + gen + "/" + i + ".png";
+    imgElement.src = "./assets/images/pokedex/" + gen + "/" + i + ".png";
     imgElement.width = 215;
     imgElement.height = 215;
 

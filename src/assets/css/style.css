@@ -22,6 +22,13 @@ body {
   padding: 30px 0;
 }
 
+.wrapper {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  padding: 40px 0;
+}
+
 .container {
   width: 100%;
   max-width: 80%;
@@ -255,8 +262,9 @@ body {
   width: 100%;
   height: 100%;
   background-image: url(../images/pokedex/gen1/006.png);
-  background-size:cover;
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .right-side .types{
@@ -280,11 +288,11 @@ body {
 }
 
 
-.right-side .changing{
-
+.right-side .changing {
   height: 80%;
   width: 100%;
   perspective: 1000px;
+  user-select: none;
 }
 
 .right-side .changing .inner {
@@ -300,7 +308,7 @@ body {
   transform: rotateY(180deg);
 }
 
-.right-side .changing .info-list, .right-side .changing .description{
+.right-side .changing .info-list, .right-side .changing .description-list{
   background-color: #313131;
   position: absolute;
   width: 100%;
@@ -312,7 +320,7 @@ body {
   border-radius: 10px;
 }
 
-.right-side .changing .description{
+.right-side .changing .description-list{
   transform: rotateY(180deg);
   top: 0;
   left: 0;
@@ -370,3 +378,30 @@ body {
   border-radius: 20px;
   border: #000 solid 15px;
 }
+
+.info-list{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  color: #313131;
+  padding: 10px;
+}
+
+.info-list .info{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.description-list{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  color: white;
+}
+

@@ -4,12 +4,11 @@ window.onload = checkPokemonPresence();
 async function checkPokemonPresence(){
     let id = localStorage.getItem("pokemonId");
     if(id == null){
-        alert("No pokemon selected");
-        window.location.href = "index.html";
+        window.location.href = "./index.html";
     }
     else{
         const pokemon = await loadPokemonDetail(id);
-        console.log(pokemon);
+        createDetailPage(pokemon);
         localStorage.removeItem("pokemonId");
     }
 }
@@ -23,5 +22,19 @@ async function loadPokemonDetail(id){
 
 function goToLabyrinth(){
     localStorage.setItem("pokemon", JSON.stringify(pokemon));
-    window.location.href = "labyrinth.html";
+    window.location.href = "./labyrinth.html";
 }   
+
+function createDetailPage(pokemon){
+    //name
+    let title = document.getElementById("name-title");
+    let name = document.getElementById("name");
+    let id = document.getElementById("id");
+    let p = document.createElement("p");
+    let span = document.createElement("span");
+    p.innerHTML = pokemon.name;
+    span.innerHTML = "N° "+ pokemon.id;
+    title.appendChild(p);
+    title.appendChild(span);
+
+}
