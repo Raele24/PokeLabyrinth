@@ -28,7 +28,7 @@ function loadPokemon() {
   let gen = selectedGen.value;
   let genName = generationsNames[gen];
   let imgRegion = document.createElement("img");
-  imgRegion.src = "../assets/images/regions/" + generationsRegions[gen] + ".png";
+  imgRegion.src = "../src/assets/images/regions/" + generationsRegions[gen] + ".png";
   region.appendChild(imgRegion);
   let nameRegion = document.createElement("h3");
   nameRegion.innerHTML = generationsRegions[gen];
@@ -52,12 +52,11 @@ function loadPokemon() {
       loadShortDetail(pokemonName, pokemonTypes, pokemonId, i, overlay);
     });
 
-
     let overlay = document.createElement("div");
     overlay.className = "overlay";
 
     let imgElement = document.createElement("img");
-    imgElement.src = "../assets/images/pokedex/" + gen + "/" + i + ".png";
+    imgElement.src = "../src/assets/images/pokedex/" + gen + "/" + i + ".png";
     imgElement.width = 215;
     imgElement.height = 215;
 
@@ -68,14 +67,14 @@ function loadPokemon() {
 }
 
 function preparePokemonDetail(id) {
-  if (confirm("Do you want to see the details of this pokemon?")) {
-    openPokemonDetail(id);
-  }
+  // if (confirm("Do you want to see the details of this pokemon?")) {
+  openPokemonDetail(id);
+  // }
 }
 
 function openPokemonDetail(id) {
   localStorage.setItem("pokemonId", id);
-  window.location.href = "pokemonDetail.html";
+  window.location.href = "../../pokemonDetail.html";
 }
 
 async function loadShortDetail(pokemonName, pokemonTypes, pokemonId, i, overlay) {

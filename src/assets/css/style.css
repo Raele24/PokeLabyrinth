@@ -3,7 +3,7 @@ body {
   padding: 0;
   color: #fff;
   background: rgb(123, 9, 9);
-  animation: colorChange 80s infinite linear;
+  animation: colorChange 70s infinite linear;
   background-image: url(../images/container_bg.png);
 }
 
@@ -18,10 +18,14 @@ body {
 }
 
 
+.background {
+  padding: 30px 0;
+}
+
 .container {
   width: 100%;
   max-width: 80%;
-  margin: 20 auto 20 auto;
+  margin: 0 auto;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.75);

@@ -61,6 +61,7 @@ const createWindow = () => {
         height: 800,
         icon: __dirname + '/assets/favicon/favicon-96x96.png',
         webPreferences: {
+            webSecurity: false, 
             nodeIntegration: true,
             contextIsolation: true,
             preload: path.join(__dirname, 'src/preload.js'),
