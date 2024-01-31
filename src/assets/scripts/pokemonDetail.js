@@ -1,4 +1,4 @@
-//window.onload = checkPokemonPresence();
+window.onload = checkPokemonPresence();
 
 
 async function checkPokemonPresence(){

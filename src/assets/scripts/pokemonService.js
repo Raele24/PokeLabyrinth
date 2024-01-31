@@ -67,14 +67,14 @@ function loadPokemon() {
 }
 
 function preparePokemonDetail(id) {
-  // if (confirm("Do you want to see the details of this pokemon?")) {
+  
   openPokemonDetail(id);
-  // }
+  
 }
 
 function openPokemonDetail(id) {
   localStorage.setItem("pokemonId", id);
-  window.location.href = "../../pokemonDetail.html";
+  window.location.href = "./pokemonDetail.html";
 }
 
 async function loadShortDetail(pokemonName, pokemonTypes, pokemonId, i, overlay) {

@@ -81,41 +81,95 @@
       </div>
     </div>
 
-    <div class="background">
+    <div class="backgorund">
       <div class="container">
-        <div class="title">
-          <h1>PokéLabyrinth</h1>
+        <div class="name-title" id="name-title">
+          <p id="name">Charizard </p><span id="id">N001</span>
         </div>
     
-        <div class="settings">
-          <div class="left">
-            <div id="region" class="region">
+        <div class="general" id="general">
+          <div class="left-side">
+            <div class="img" id="img"></div>
+          </div>
     
+          <div class="right-side">
+            <div class="types" id="types">
+              <p class="pk-type">fire</p>
+              <p class="pk-type">flying</p>
+            </div> 
+            <div class="changing" id="changing">
+              <div class="inner">
+                <div class="info-list" id="info-list">
+                  <div class="info">
+                    <p>Height</p>
+                    <p id="height">10</p>
+                  </div>
+                  <div class="info">
+                    <p>Weight</p>
+                    <p id="weight">10</p>
+                  </div>
+                  <div class="info">
+                    <p>Abilities</p>
+                    <p id="abilities">10</p>
+                  </div>
+                </div>
+                <div class="description" id="description">
+                  <p>Charizard flies around the sky in search of powerful opponents. It breathes fire of such great heat that it melts anything. However, it never turns its fiery breath on any opponent weaker than itself.</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="right">
-            <select id="selectedGen" class="selectGen" onchange="loadPokemon()">
-              <option value="gen1" selected>⚪ Generation 1</option>
-              <option value="gen2">⚪ Generation 2</option>
-              <option value="gen3">⚪ Generation 3</option>
-              <option value="gen4">⚪ Generation 4</option>
-              <option value="gen5">⚪ Generation 5</option>
-              <option value="gen6">⚪ Generation 6</option>
-              <option value="gen7">⚪ Generation 7</option>
-              <option value="gen8">⚪ Generation 8</option>
-              <option value="gen9">⚪ Generation 9</option>
-              <option value="past">⚪ Past</option>
-            </select>
+        </div>
+    
+        <div class="stats" id="stats">
+          <div class="stat">
+            <p>Hp</p>
+            <p id="hp">10</p>
+            <div class="gradient-bar"></div>
+          </div>
+          <div class="stat">
+            <p>Attack</p>
+            <p id="attack">10</p>
+          </div>
+          <div class="stat">
+            <p>Defense</p>
+            <p id="defense">10</p>
+          </div>
+          <div class="stat">
+            <p>Sp. Atk</p>
+            <p id="spAtk">10</p>
+          </div>
+          <div class="stat">
+            <p>Sp. Def</p>
+            <p id="spDef">10</p>
+          </div>
+          <div class="stat">
+            <p>Speed</p>
+            <p id="speed">10</p>
           </div>
         </div>
     
-        <div id="pokeList" class="pokeList">
-    
+        <div class="evo-line" id="evo-line">
+          <div class="evo">
+            <img src="./assets/images/pokedex/gen1/004.png" alt="" class="img" id="evo">
+            <p class="name" >Charmander</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>      
+          <div class="evo">
+            <img src="./assets/images/pokedex/gen1/005.png" alt="" class="img" id="evo">
+            <p class="name" >Charmeleon</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>      
+          <div class="evo">
+            <img src="./assets/images/pokedex/gen1/006.png" alt="" class="img" id="evo">
+            <p class="name" >Charizard</p>
+          </div>
         </div>
     
-      </div>
     
+      </div>
     </div>
+    
 
   </div>
 
@@ -132,5 +186,6 @@
 <script src="./assets/environment/typeColors.js"></script>
 <script src="./assets/scripts/pokeApiReq.js"></script>
 <script src="./assets/scripts/pokemonService.js"></script>
+<script src="./assets/scripts/pokemonDetail.js"></script>
 
 </html>
