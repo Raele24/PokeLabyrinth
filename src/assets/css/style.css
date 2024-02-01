@@ -351,6 +351,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   border-radius: 50px;
   background-color: #313131;
   background-image: url(../images/container_bg.png);
@@ -360,6 +361,15 @@ body {
 .evo-line svg {
   width: 100px;
   height: 100px;
+}
+
+.evo-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
 }
 
 .evo p{

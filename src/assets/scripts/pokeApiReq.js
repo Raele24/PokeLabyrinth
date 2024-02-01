@@ -19,11 +19,8 @@ async function createPokemonDto(pokemon) {
     const evolutionLine = await getEvolutionChainComplete(pokemon);
     const descriptionEn = await getPokemonDescriptionEnglish(pokemon);
     const descriptionIt = await getPokemonDescriptionItalian(pokemon);
-    const megaEvolutions = await getMegaEvolutions(pokemon);
-    const gmaxEvolutions = await getGmaxEvolutions(pokemon);
-    const galarForm = await getGalarForm(pokemon);
-    const alolaForm = await getAlolaForm(pokemon);
-    const therianForm = await getTherianForm(pokemon);
+    let  vari = await getAllVarieties(pokemon);
+    const varieties = vari.filter(variety => variety.name !== pokemon.name);
 
 
     const pokemonDto = {
@@ -45,11 +42,7 @@ async function createPokemonDto(pokemon) {
         weight: pokemon.weight,
         baseExperience: pokemon.base_experience,
         evolutionLine,
-        megaEvolutions,
-        gmaxEvolutions,
-        galarForm,
-        alolaForm,
-        therianForm,
+        varieties,
         descriptionEn,
         descriptionIt
 
@@ -57,27 +50,48 @@ async function createPokemonDto(pokemon) {
     return pokemonDto;
 }
 
+async function getOfficialArtwork(id) { 
+    const response = await fetch(`${API_URL}/${id}`);
+    const pokemon = await response.json();
+    const result = pokemon.sprites.other['official-artwork'].front_default;
+    return result;
+}
+
 
 async function getEvolutionChainComplete(pokemon) {
     const evolutionChain1 = await getEvolutionChain(pokemon.species.url);
     const evolutionChain = await getEvolutionChain(evolutionChain1.evolution_chain.url);
-    let evolutionLine = [];
-    function recursiveExtract(chain) {
+    let evolutionLines = [];
+    function recursiveExtract(chain, currentLine) {
         if (chain.species) {
-            evolutionLine.push({
+            currentLine.push({
                 id: chain.species.url.split("/")[6],
                 name: chain.species.name
             });
+            if (chain.evolves_to && chain.evolves_to.length > 0) {
+                // Crea una copia di currentLine per ogni possibile evoluzione
+                chain.evolves_to.forEach((evolution) => {
+                    recursiveExtract(evolution, [...currentLine]);
+                });
+            } else {
+                // Aggiungi l'intera linea evolutiva all'array
+                evolutionLines.push([...currentLine]);
+            }
         }
-        
-        if (chain.evolves_to && chain.evolves_to.length > 0) {
-            recursiveExtract(chain.evolves_to[0]);
-        }
+
     }
     
-    recursiveExtract(evolutionChain.chain);
+    recursiveExtract(evolutionChain.chain,[]);
+
+    const uniqueEvolutionLines = evolutionLines.filter(
+        (line, index, self) =>
+            index ===
+            self.findIndex(
+                (otherLine) => JSON.stringify(otherLine) === JSON.stringify(line)
+            )
+    );
     
-    return evolutionLine;
+    return uniqueEvolutionLines;
 }
 async function getEvolutionChain(url) {
     const response = await fetch(url);
@@ -85,65 +99,18 @@ async function getEvolutionChain(url) {
     return evolutionChain;
 }
 
-async function getMegaEvolutions(pokemon) {
-    const response = await getEvolutionChain(pokemon.species.url);;
-    const megaEvolutions = response.varieties.filter(variety => {
-        return variety.pokemon.name.includes("-mega") ? {
-            name: variety.pokemon.name.includes("-mega"),
-            url: variety.pokemon.url
-        } : null
-
+async function getAllVarieties(pokemon) {
+    let varietiesList = [];
+    const response = await getEvolutionChain(pokemon.species.url);
+    const varieties = response.varieties.filter(variety => {
+        varietiesList.push({
+            name: variety.pokemon.name,
+            url: variety.pokemon.url,
+            id: variety.pokemon.url.split("/")[6]
+        });
     }
     );
-    return megaEvolutions;
-}
-
-async function getGmaxEvolutions(pokemon) {
-    const response = await getEvolutionChain(pokemon.species.url);;
-    const gmaxEvolutions = response.varieties.filter(variety => {
-        return variety.pokemon.name.includes("-gmax") ? {
-            name: variety.pokemon.name.includes("-gmax"),
-            url: variety.pokemon.url
-        } : null
-    }
-    );
-    return gmaxEvolutions;
-}
-
-async function getGalarForm(pokemon) {
-    const response = await getEvolutionChain(pokemon.species.url);;
-    const galarForm = response.varieties.filter(variety => {
-        return variety.pokemon.name.includes("-galar") ? {
-            name: variety.pokemon.name.includes("-galar"),
-            url: variety.pokemon.url
-        } : null
-    }
-    );
-    return galarForm;
-}
-
-async function getAlolaForm(pokemon) {
-    const response = await getEvolutionChain(pokemon.species.url);;
-    const alolaForm = response.varieties.filter(variety => {
-        return variety.pokemon.name.includes("-alola") ? {
-            name: variety.pokemon.name.includes("-alola"),
-            url: variety.pokemon.url
-        } : null
-    }
-    );
-    return alolaForm;
-}
-
-async function getTherianForm(pokemon) {
-    const response = await getEvolutionChain(pokemon.species.url);;
-    const therianForm = response.varieties.filter(variety => {
-        return variety.pokemon.name.includes("-therian") ? {
-            name: variety.pokemon.name.includes("-therian"),
-            url: variety.pokemon.url
-        } : null
-    }
-    );
-    return therianForm;
+    return varietiesList;
 }
 
 async function getPokemonDescriptionEnglish(pokemon) {

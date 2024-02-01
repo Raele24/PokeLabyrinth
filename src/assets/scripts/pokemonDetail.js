@@ -16,7 +16,7 @@ async function checkPokemonPresence() {
 
 async function loadPokemonDetail(id) {
     if (id < 10) id = id.split("00")[1];
-    else if (id < 100) id = id.split("0")[1];
+    else if (id < 100) id = id.slice(1);
     let response = await getPokemonById(id);
     return response;
 }
@@ -26,7 +26,7 @@ function goToLabyrinth() {
     window.location.href = "./labyrinth.html";
 }
 
-function createDetailPage(pokemon) {
+async function createDetailPage(pokemon) {
     //name------------------------------
     let title = document.getElementById("name-title");
     let name = document.getElementById("name");
@@ -91,86 +91,98 @@ function createDetailPage(pokemon) {
     descriptionEn.innerHTML += pokemon.descriptionEn;
 
     //evolution line--------------------
-    let gen = localStorage.getItem("gen");
     let evolutionLine = document.getElementById("evo-line");
-    if (pokemon.name == pokemon.evolutionLine[0].name && pokemon.evolutionLine.length == 1) {
-        let div = document.createElement("div");
-        div.className = "evo";
-        let img = document.createElement("img");
-        let id = pokemon.evolutionLine[0].id;
-        if (id < 10) id = "00" + id;
-        else if (id < 100) id = "0" + id;
-        img.src = "./assets/images/pokedex/" + gen + "/" + id + ".png";
-        let p = document.createElement("p");
-        p.className = "name";
-        p.innerHTML = pokemon.evolutionLine[0].name[0].toUpperCase() + pokemon.evolutionLine[0].name.slice(1);
-        div.appendChild(img);
-        div.appendChild(p);
-        evolutionLine.appendChild(div);
-    } else {
         for (let i = 0; i < pokemon.evolutionLine.length; i++) {
-            let div = document.createElement("div");
-            div.className = "evo";
-            let img = document.createElement("img");
-            let id = pokemon.evolutionLine[i].id;
-            if (id < 10) id = "00" + id;
-            else if (id < 100) id = "0" + id;
-            img.src = "./assets/images/pokedex/" + gen + "/" + id + ".png";
-            let p = document.createElement("p");
-            p.className = "name";
-            p.innerHTML = pokemon.evolutionLine[i].name[0].toUpperCase() + pokemon.evolutionLine[i].name.slice(1);
-            div.appendChild(img);
-            div.appendChild(p);
-            evolutionLine.appendChild(div);
-            if (i < pokemon.evolutionLine.length - 1) {
-                let arrow = document.createElement("div");
-                arrow.className = "arrow";
-                arrow.innerHTML = svgArrow;
-                evolutionLine.appendChild(arrow);
+            let evoContainer = document.createElement("div");
+            evoContainer.className = "evo-container";
+            for (let j = 0; j < pokemon.evolutionLine[i].length; j++) {
+                let div = document.createElement("div");
+                div.className = "evo";
+                let img = document.createElement("img");
+                let id = pokemon.evolutionLine[i][j].id;
+                if (id < 10) id = "00" + id;
+                else if (id < 100) id = "0" + id;
+                let gen = getGeneration(id);
+                img.src = "./assets/images/pokedex/" + gen + "/" + id + ".png";
+                let p = document.createElement("p");
+                p.className = "name";
+                p.innerHTML = pokemon.evolutionLine[i][j].name[0].toUpperCase() + pokemon.evolutionLine[i][j].name.slice(1);
+                div.appendChild(img);
+                div.appendChild(p);
+                evoContainer.appendChild(div);
+                evolutionLine.appendChild(evoContainer);
+                if (j < pokemon.evolutionLine[i].length - 1) {
+                    let arrow = document.createElement("div");
+                    arrow.className = "arrow";
+                    arrow.innerHTML = svgArrow;
+                    evoContainer.appendChild(arrow);
+                }
             }
         }
+
+    //forms-----------------------------
+
+    for (let i = 0; i < pokemon.varieties.length; i++) {
+        const image = await getOfficialArtwork(pokemon.varieties[i].id);
+        console.log(image);
+        //TODO: fix this
     }
 
-    let color1 = [
-        parseInt(typeColors[pokemon.types[0]].substr(-6,2),16),
-        parseInt(typeColors[pokemon.types[0]].substr(-4,2),16),
-        parseInt(typeColors[pokemon.types[0]].substr(-2),16)
-    ];
+
     //stats-----------------------------
+    let color1 = [
+        parseInt(typeColors[pokemon.types[0]].substr(-6, 2), 16),
+        parseInt(typeColors[pokemon.types[0]].substr(-4, 2), 16),
+        parseInt(typeColors[pokemon.types[0]].substr(-2), 16)
+    ];
     const ctx = document.getElementById('statsChart');
     new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: [pokemon.stats[0].name[0].toUpperCase() + pokemon.stats[0].name.slice(1), pokemon.stats[1].name[0].toUpperCase() + pokemon.stats[1].name.slice(1), pokemon.stats[2].name[0].toUpperCase() + pokemon.stats[2].name.slice(1), pokemon.stats[3].name[0].toUpperCase() + pokemon.stats[3].name.slice(1),pokemon.stats[4].name[0].toUpperCase() + pokemon.stats[4].name.slice(1), pokemon.stats[5].name[0].toUpperCase() + pokemon.stats[5].name.slice(1)],
-          datasets: [{
-            label: 'Pokemon stats',
-            data: [pokemon.stats[0].value, pokemon.stats[1].value, pokemon.stats[2].value, pokemon.stats[3].value, pokemon.stats[4].value, pokemon.stats[5].value],
-            borderWidth: 2  ,
-            borderColor: pokemon.types[1] ? typeColors[pokemon.types[1]] : "black",
-            backgroundColor: "rgb("+color1[0]+","+color1[1]+","+color1[2]+", 0.5)",
-          }]
+            labels: [pokemon.stats[0].name[0].toUpperCase() + pokemon.stats[0].name.slice(1), pokemon.stats[1].name[0].toUpperCase() + pokemon.stats[1].name.slice(1), pokemon.stats[2].name[0].toUpperCase() + pokemon.stats[2].name.slice(1), pokemon.stats[3].name[0].toUpperCase() + pokemon.stats[3].name.slice(1), pokemon.stats[4].name[0].toUpperCase() + pokemon.stats[4].name.slice(1), pokemon.stats[5].name[0].toUpperCase() + pokemon.stats[5].name.slice(1)],
+            datasets: [{
+                label: 'Pokemon stats',
+                data: [pokemon.stats[0].value, pokemon.stats[1].value, pokemon.stats[2].value, pokemon.stats[3].value, pokemon.stats[4].value, pokemon.stats[5].value],
+                borderWidth: 2,
+                borderColor: pokemon.types[1] ? typeColors[pokemon.types[1]] : "black",
+                backgroundColor: "rgb(" + color1[0] + "," + color1[1] + "," + color1[2] + ", 0.5)",
+            }]
         },
         options: {
-        indexAxis: 'y',
-          scales: {
-            x: {
-              beginAtZero: true,
-              min: 0,
-              max: 255
-            }
-          },
-          plugins: {
-            legend: {
-                display: false,
-                labels: {
-                    color: pokemon.types[0],
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 255
                 }
-            }
-        },
+            },
+            plugins: {
+                legend: {
+                    display: false,
+                    labels: {
+                        color: pokemon.types[0],
+                    }
+                }
+            },
         },
         responsive: true,
         maintainAspectRatio: false
-      });
+    });
 }
 
 let svgArrow = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"> <path stroke="none" d="M0 0h24v24H0z" fill="none" /> <path d="M9 6l6 6l-6 6" /> </svg>';
+
+
+function getGeneration(id) {
+    if(id <= json.past.end && id >= json.past.start) return "past";
+    if (id < json.gen2.start) return "gen1";
+    else if (id < json.gen3.start) return "gen2";
+    else if (id < json.gen4.start) return "gen3";
+    else if (id < json.gen5.start) return "gen4";
+    else if (id < json.gen6.start) return "gen5";
+    else if (id < json.gen7.start) return "gen6";
+    else if (id < json.gen8.start) return "gen7";
+    else if (id < json.gen9.start) return "gen8";
+    else return "gen9";
+}
