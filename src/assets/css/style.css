@@ -301,6 +301,8 @@ body {
   text-align: center;
   transition: transform 1s;
   transform-style: preserve-3d;
+  background-color: #632323;
+  border-radius: 30px;
 }
 
 .right-side .changing:hover .inner {
@@ -308,7 +310,6 @@ body {
 }
 
 .right-side .changing .info-list, .right-side .changing .description-list{
-  background-color: #313131;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -353,7 +354,7 @@ body {
   border-radius: 50px;
   background-color: #313131;
   background-image: url(../images/container_bg.png);
-  padding: 10px;
+  padding: 80px;
 }
 
 .evo-line svg {
@@ -384,23 +385,43 @@ body {
   flex-wrap: wrap;
   align-items: center;
   color: #313131;
-  padding: 10px;
 }
 
 .info-list .info{
-  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 50%;
+  font-size: 30px;
 }
 
 .description-list{
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   color: white;
+  font-size: 20px;
+  font-weight: lighter;
+  padding: 10px;
+}
+
+.description-list h3{
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.info_value{
+  font-size: 24px;
+  font-weight: 20;
+}
+
+.info_value li{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
 }
 

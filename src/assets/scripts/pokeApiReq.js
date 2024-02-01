@@ -16,8 +16,7 @@ async function getPokemonById(pokemonId) {
 
 async function createPokemonDto(pokemon) {
 
-    const evolvesFromSpecies = await getEvolvesFromSpecies(pokemon);
-    const evolvesIntoSpecies = await getEvolvesIntoSpecies(pokemon);
+    const evolutionLine = await getEvolutionChainComplete(pokemon);
     const descriptionEn = await getPokemonDescriptionEnglish(pokemon);
     const descriptionIt = await getPokemonDescriptionItalian(pokemon);
     const megaEvolutions = await getMegaEvolutions(pokemon);
@@ -45,8 +44,7 @@ async function createPokemonDto(pokemon) {
         height: pokemon.height,
         weight: pokemon.weight,
         baseExperience: pokemon.base_experience,
-        evolvesFromSpecies,
-        evolvesIntoSpecies,
+        evolutionLine,
         megaEvolutions,
         gmaxEvolutions,
         galarForm,
@@ -60,27 +58,27 @@ async function createPokemonDto(pokemon) {
 }
 
 
-
-async function getEvolvesFromSpecies(pokemon) {
-    const evolutionChain = await getEvolutionChain(pokemon.species.url);
-    return evolutionChain.evolves_from_species ? {
-        id: evolutionChain.evolves_from_species.url.split("/")[6] ? evolutionChain.evolves_from_species.url.split("/")[6] : null,
-        name: evolutionChain.evolves_from_species.name ? evolutionChain.evolves_from_species.name : null
-    } : null;
-
+async function getEvolutionChainComplete(pokemon) {
+    const evolutionChain1 = await getEvolutionChain(pokemon.species.url);
+    const evolutionChain = await getEvolutionChain(evolutionChain1.evolution_chain.url);
+    let evolutionLine = [];
+    function recursiveExtract(chain) {
+        if (chain.species) {
+            evolutionLine.push({
+                id: chain.species.url.split("/")[6],
+                name: chain.species.name
+            });
+        }
+        
+        if (chain.evolves_to && chain.evolves_to.length > 0) {
+            recursiveExtract(chain.evolves_to[0]);
+        }
+    }
+    
+    recursiveExtract(evolutionChain.chain);
+    
+    return evolutionLine;
 }
-
-async function getEvolvesIntoSpecies(pokemon) {
-    const evolutionChain = await getEvolutionChain(pokemon.species.url);
-    const evolutionChain1 = await getEvolutionChain(evolutionChain.evolution_chain.url);
-    if (evolutionChain1.chain.evolves_to[0] == null) return null;
-    if (evolutionChain1.chain.evolves_to[0].evolves_to.length == 0) return null;
-    return evolutionChain1.chain.evolves_to[0] ? {
-        id: evolutionChain1.chain.evolves_to[0].evolves_to[0].species.url.split("/")[6],
-        name: evolutionChain1.chain.evolves_to[0].evolves_to[0].species.name
-    } : null;
-}
-
 async function getEvolutionChain(url) {
     const response = await fetch(url);
     const evolutionChain = await response.json();
@@ -91,8 +89,8 @@ async function getMegaEvolutions(pokemon) {
     const response = await getEvolutionChain(pokemon.species.url);;
     const megaEvolutions = response.varieties.filter(variety => {
         return variety.pokemon.name.includes("-mega") ? {
-          name:   variety.pokemon.name.includes("-mega"),
-          url: variety.pokemon.url
+            name: variety.pokemon.name.includes("-mega"),
+            url: variety.pokemon.url
         } : null
 
     }
@@ -103,11 +101,11 @@ async function getMegaEvolutions(pokemon) {
 async function getGmaxEvolutions(pokemon) {
     const response = await getEvolutionChain(pokemon.species.url);;
     const gmaxEvolutions = response.varieties.filter(variety => {
-        return variety.pokemon.name.includes("-gmax") ?{
+        return variety.pokemon.name.includes("-gmax") ? {
             name: variety.pokemon.name.includes("-gmax"),
             url: variety.pokemon.url
         } : null
-    } 
+    }
     );
     return gmaxEvolutions;
 }

@@ -16,7 +16,6 @@ const selectedGen = document.getElementById('selectedGen');
 const region = document.getElementById('region');
 
 window.onload = function () {
-  selectedGen.value = "gen1";
   loadPokemon();
 }
 
@@ -74,6 +73,7 @@ function preparePokemonDetail(id) {
 
 function openPokemonDetail(id) {
   localStorage.setItem("pokemonId", id);
+  localStorage.setItem("gen", selectedGen.value);
   window.location.href = "./pokemonDetail.html";
 }
 
