@@ -29,6 +29,7 @@ async function createPokemonDto(pokemon) {
         name: pokemon.name,
         image: pokemon.sprites.other['official-artwork'].front_default ? pokemon.sprites.other['official-artwork'].front_default : pokemon.sprites.other['home'].front_default,
         imageShiny: pokemon.sprites.other['official-artwork'].front_shiny ? pokemon.sprites.other['official-artwork'].front_shiny : pokemon.sprites.other['home'].front_shiny,
+        imageFemale: pokemon.sprites.other['home'].front_female ? pokemon.sprites.other['home'].front_female : null,
         gif: pokemon.sprites.other.showdown.front_default,
         gifShiny: pokemon.sprites.other.showdown.front_shiny,
         types: pokemon.types.map(type => type.type.name),

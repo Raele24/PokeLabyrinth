@@ -104,6 +104,7 @@ async function createDetailPage(pokemon) {
             let div = document.createElement("div");
             div.className = "evo";
             let img = document.createElement("img");
+            img.className = "evo-img";
             let id = pokemon.evolutionLine[i][j].id;
             if (id < 10) id = "00" + id;
             else if (id < 100) id = "0" + id;
