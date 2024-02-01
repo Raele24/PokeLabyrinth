@@ -69,14 +69,19 @@ async function createDetailPage(pokemon) {
     let abilities = document.getElementById("abilities");
     let base_experience = document.getElementById("base_experience");
 
-    weight.innerHTML = pokemon.weight / 10 + " kg";
-    height.innerHTML = pokemon.height / 10 + " m";
+    weight.innerHTML = pokemon.weight ? pokemon.weight / 10 + " kg" : "??? kg";
+    height.innerHTML = pokemon.height ? pokemon.height / 10 + " m" : "??? m";
+    if (pokemon.abilities.length == 0) {
+        let li = document.createElement("li");
+        li.innerHTML = "???";
+        abilities.appendChild(li);
+    }
     for (let i = 0; i < pokemon.abilities.length; i++) {
         let li = document.createElement("li");
         li.innerHTML = "● " + pokemon.abilities[i];
         abilities.appendChild(li);
     }
-    base_experience.innerHTML = pokemon.baseExperience + " xp";
+    base_experience.innerHTML = pokemon.baseExperience ? pokemon.baseExperience + " xp" : "??? xp";
 
     //description-----------------------
     let descriptionIt = document.getElementById("description-it");
@@ -92,41 +97,73 @@ async function createDetailPage(pokemon) {
 
     //evolution line--------------------
     let evolutionLine = document.getElementById("evo-line");
-        for (let i = 0; i < pokemon.evolutionLine.length; i++) {
-            let evoContainer = document.createElement("div");
-            evoContainer.className = "evo-container";
-            for (let j = 0; j < pokemon.evolutionLine[i].length; j++) {
-                let div = document.createElement("div");
-                div.className = "evo";
-                let img = document.createElement("img");
-                let id = pokemon.evolutionLine[i][j].id;
-                if (id < 10) id = "00" + id;
-                else if (id < 100) id = "0" + id;
-                let gen = getGeneration(id);
-                img.src = "./assets/images/pokedex/" + gen + "/" + id + ".png";
-                let p = document.createElement("p");
-                p.className = "name";
-                p.innerHTML = pokemon.evolutionLine[i][j].name[0].toUpperCase() + pokemon.evolutionLine[i][j].name.slice(1);
-                div.appendChild(img);
-                div.appendChild(p);
-                evoContainer.appendChild(div);
-                evolutionLine.appendChild(evoContainer);
-                if (j < pokemon.evolutionLine[i].length - 1) {
-                    let arrow = document.createElement("div");
-                    arrow.className = "arrow";
-                    arrow.innerHTML = svgArrow;
-                    evoContainer.appendChild(arrow);
-                }
+    for (let i = 0; i < pokemon.evolutionLine.length; i++) {
+        let evoContainer = document.createElement("div");
+        evoContainer.className = "evo-container";
+        for (let j = 0; j < pokemon.evolutionLine[i].length; j++) {
+            let div = document.createElement("div");
+            div.className = "evo";
+            let img = document.createElement("img");
+            let id = pokemon.evolutionLine[i][j].id;
+            if (id < 10) id = "00" + id;
+            else if (id < 100) id = "0" + id;
+            let gen = getGeneration(id);
+            img.src = "./assets/images/pokedex/" + gen + "/" + id + ".png";
+            let p = document.createElement("p");
+            p.className = "name";
+            p.innerHTML = pokemon.evolutionLine[i][j].name[0].toUpperCase() + pokemon.evolutionLine[i][j].name.slice(1);
+            div.appendChild(img);
+            div.appendChild(p);
+            evoContainer.appendChild(div);
+            evolutionLine.appendChild(evoContainer);
+            if (j < pokemon.evolutionLine[i].length - 1) {
+                let arrow = document.createElement("div");
+                arrow.className = "arrow";
+                arrow.innerHTML = svgArrow;
+                evoContainer.appendChild(arrow);
             }
         }
+    }
+
+    //varieties-----------------------------
+    let container = document.createElement("div");
+    container.className = "varieties-container";
+    for (let i = 0; i < pokemon.varieties.length; i++) {
+        let div = document.createElement("div");
+        div.className = "evo";
+        let img = document.createElement("img");
+        img.className = "varieties-img";
+        let id = pokemon.varieties[i].id;
+        let imgSrc = await getOfficialArtwork(id);
+        img.src = imgSrc;
+        let p = document.createElement("p");
+        p.className = "name";
+        p.innerHTML = pokemon.varieties[i].name[0].toUpperCase() + pokemon.varieties[i].name.slice(1);
+        div.appendChild(img);
+        div.appendChild(p);
+        container.appendChild(div);
+    }
+    evolutionLine.appendChild(container);
 
     //forms-----------------------------
-
-    for (let i = 0; i < pokemon.varieties.length; i++) {
-        const image = await getOfficialArtwork(pokemon.varieties[i].id);
-        console.log(image);
-        //TODO: fix this
+    let forms = document.createElement("div");
+    forms.className = "forms-container";
+    for (let i = 0; i < pokemon.forms.length; i++) {
+        let div = document.createElement("div");
+        div.className = "evo";
+        let img = document.createElement("img");
+        img.className = "forms-img";
+        let id = pokemon.forms[i].id;
+        let imgSrc = await getFrontDefault(id);
+        img.src = imgSrc ? imgSrc : "./assets/images/404.png";
+        let p = document.createElement("p");
+        p.className = "name";
+        p.innerHTML = pokemon.forms[i].name[0].toUpperCase() + pokemon.forms[i].name.slice(1);
+        div.appendChild(img);
+        div.appendChild(p);
+        forms.appendChild(div);
     }
+    evolutionLine.appendChild(forms);
 
 
     //stats-----------------------------
@@ -175,7 +212,8 @@ let svgArrow = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler 
 
 
 function getGeneration(id) {
-    if(id <= json.past.end && id >= json.past.start) return "past";
+    id = parseInt(id);
+    if (id <= json.past.end && id >= json.past.start) return "past";
     if (id < json.gen2.start) return "gen1";
     else if (id < json.gen3.start) return "gen2";
     else if (id < json.gen4.start) return "gen3";

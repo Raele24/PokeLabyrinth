@@ -19,14 +19,16 @@ async function createPokemonDto(pokemon) {
     const evolutionLine = await getEvolutionChainComplete(pokemon);
     const descriptionEn = await getPokemonDescriptionEnglish(pokemon);
     const descriptionIt = await getPokemonDescriptionItalian(pokemon);
-    let  vari = await getAllVarieties(pokemon);
+    let vari = await getAllVarieties(pokemon);
     const varieties = vari.filter(variety => variety.name !== pokemon.name);
+    const forms = await getAllForms(pokemon);
 
 
     const pokemonDto = {
         id: pokemon.id,
         name: pokemon.name,
-        image: pokemon.sprites.other['official-artwork'].front_default,
+        image: pokemon.sprites.other['official-artwork'].front_default ? pokemon.sprites.other['official-artwork'].front_default : pokemon.sprites.other['home'].front_default,
+        imageShiny: pokemon.sprites.other['official-artwork'].front_shiny ? pokemon.sprites.other['official-artwork'].front_shiny : pokemon.sprites.other['home'].front_shiny,
         gif: pokemon.sprites.other.showdown.front_default,
         gifShiny: pokemon.sprites.other.showdown.front_shiny,
         types: pokemon.types.map(type => type.type.name),
@@ -43,6 +45,7 @@ async function createPokemonDto(pokemon) {
         baseExperience: pokemon.base_experience,
         evolutionLine,
         varieties,
+        forms,
         descriptionEn,
         descriptionIt
 
@@ -50,11 +53,31 @@ async function createPokemonDto(pokemon) {
     return pokemonDto;
 }
 
-async function getOfficialArtwork(id) { 
+async function getOfficialArtwork(id) {
     const response = await fetch(`${API_URL}/${id}`);
     const pokemon = await response.json();
-    const result = pokemon.sprites.other['official-artwork'].front_default;
+    const result = pokemon.sprites.other['official-artwork'].front_default ? pokemon.sprites.other['official-artwork'].front_default : pokemon.sprites.other['home'].front_default;
     return result;
+}
+
+async function getFrontDefault(id) {
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon-form/"+id+"/");
+    const pokemon = await response.json();
+    const result = pokemon.sprites.front_default ? pokemon.sprites.front_default : null;
+    return result;
+}
+
+async function getAllForms(pokemon) {
+    let forms = [];
+    const result = pokemon.forms.map(form => {
+        forms.push({
+            name: form.name,
+            url: form.url,
+            id: form.url.split("/")[6]
+        });
+    });
+
+    return forms = forms.filter(form => form.name !== pokemon.name);
 }
 
 
@@ -69,19 +92,17 @@ async function getEvolutionChainComplete(pokemon) {
                 name: chain.species.name
             });
             if (chain.evolves_to && chain.evolves_to.length > 0) {
-                // Crea una copia di currentLine per ogni possibile evoluzione
                 chain.evolves_to.forEach((evolution) => {
                     recursiveExtract(evolution, [...currentLine]);
                 });
             } else {
-                // Aggiungi l'intera linea evolutiva all'array
                 evolutionLines.push([...currentLine]);
             }
         }
 
     }
-    
-    recursiveExtract(evolutionChain.chain,[]);
+
+    recursiveExtract(evolutionChain.chain, []);
 
     const uniqueEvolutionLines = evolutionLines.filter(
         (line, index, self) =>
@@ -90,7 +111,7 @@ async function getEvolutionChainComplete(pokemon) {
                 (otherLine) => JSON.stringify(otherLine) === JSON.stringify(line)
             )
     );
-    
+
     return uniqueEvolutionLines;
 }
 async function getEvolutionChain(url) {
