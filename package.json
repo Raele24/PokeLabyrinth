@@ -13,30 +13,30 @@
     "publish": {
       "provider": "github",
       "releaseType": "release",
-      "owner": "Raele",
-      "repo": "pokelabyrinth"
+      "owner": "Raele24",
+      "repo": "PokeLabyrinth"
     },
     "build": {
       "artifactName": "pokelabyrinth-setup-${version}.${ext}",
-      "appId": "org.example.pokelabyrinth",
+      "appId": "it.raele.pokelabyrinth",
       "productName": "pokelabyrinth",
       "win": {
         "target": [
           "nsis"
         ],
-        "icon": "src/assets/favicon/logo.ico",
+        "icon": "src/assets/images/favicon/logo.ico",
         "publisherName": "Raele",
         "verifyUpdateCodeSignature": false
       },
       "nsis": {
-        "installerIcon": "src/assets/favicon/logoinstaller.ico",
-        "uninstallerIcon": "src/assets/favicon/logo.ico",
-        "uninstallDisplayName": "pokelabyrinth_UNINSTALLER",
+        "installerIcon": "src/assets/images/favicon/logo.ico",
+        "uninstallerIcon": "src/assets/images/favicon/logo.ico",
+        "uninstallDisplayName": "pokelabyrinth",
         "oneClick": false,
         "allowToChangeInstallationDirectory": true,
         "createDesktopShortcut": true,
         "createStartMenuShortcut": true,
-        "shortcutName": "pokelabyrinth",
+        "shortcutName": "PokeLabyrinth",
         "runAfterFinish": true,
         "license": "LICENSE.txt"
       }
