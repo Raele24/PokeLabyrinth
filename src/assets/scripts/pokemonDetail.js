@@ -40,7 +40,7 @@ async function createDetailPage(pokemon) {
     else if (pokemon.id < 100) span.innerHTML = "N° 0" + pokemon.id;
     else span.innerHTML = "N° " + pokemon.id;
     title.appendChild(p);
-    !pokemon.name.includes("-") ? title.appendChild(span) : title.innerHTML += "";
+    !(pokemon.id > json.gen9.end) ? title.appendChild(span) : title.innerHTML += "";
 
     //image-----------------------------
     let left_side = document.getElementById("left-side");
@@ -134,9 +134,7 @@ async function createDetailPage(pokemon) {
     //varieties-----------------------------
     let container = document.createElement("div");
     container.className = "varieties-container";
-    let i;
-    !pokemon.name.includes("-") ? i = 0 : i = 1;
-    for (; i < pokemon.varieties.length; i++) {
+    for (let i=0; i < pokemon.varieties.length; i++) {
         let div = document.createElement("div");
         div.className = "evo";
         let img = document.createElement("img");
