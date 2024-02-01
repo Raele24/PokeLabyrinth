@@ -15,7 +15,18 @@ const pokeList = document.getElementById('pokeList');
 const selectedGen = document.getElementById('selectedGen');
 const region = document.getElementById('region');
 
+selectedGen.addEventListener("change", function () { 
+  localStorage.setItem("gen", selectedGen.value); 
+  loadPokemon();
+});
+
 window.onload = function () {
+  selectedGen.value = "gen1";
+  loadPokemon();
+}
+
+window.onpageshow = function () {
+  selectedGen.value = localStorage.getItem("gen");
   loadPokemon();
 }
 
@@ -66,9 +77,7 @@ function loadPokemon() {
 }
 
 function preparePokemonDetail(id) {
-  
   openPokemonDetail(id);
-  
 }
 
 function openPokemonDetail(id) {

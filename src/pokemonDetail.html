@@ -120,31 +120,7 @@
         </div>
 
         <div class="stats" id="stats">
-          <div class="stat">
-            <p>Hp</p>
-            <p id="hp">10</p>
-            <div class="gradient-bar"></div>
-          </div>
-          <div class="stat">
-            <p>Attack</p>
-            <p id="attack">10</p>
-          </div>
-          <div class="stat">
-            <p>Defense</p>
-            <p id="defense">10</p>
-          </div>
-          <div class="stat">
-            <p>Sp. Atk</p>
-            <p id="spAtk">10</p>
-          </div>
-          <div class="stat">
-            <p>Sp. Def</p>
-            <p id="spDef">10</p>
-          </div>
-          <div class="stat">
-            <p>Speed</p>
-            <p id="speed">10</p>
-          </div>
+          <canvas id="statsChart"></canvas>
         </div>
 
         <div class="evo-line" id="evo-line">
@@ -167,6 +143,7 @@
   </div>
 </body>
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./assets/environment/typeColors.js"></script>
 <script src="./assets/scripts/pokeApiReq.js"></script>
 <script src="./assets/scripts/pokemonDetail.js"></script>

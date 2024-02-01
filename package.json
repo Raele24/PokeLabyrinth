@@ -5,51 +5,52 @@
     "author": "Raele",
     "main": "app.js",
     "scripts": {
-      "start": "electron .",
-      "build": "electron-builder",
-      "release": "electron-builder -p always"
+        "start": "electron .",
+        "build": "electron-builder",
+        "release": "electron-builder -p always"
     },
     "repository": "",
     "publish": {
-      "provider": "github",
-      "releaseType": "release",
-      "owner": "Raele24",
-      "repo": "PokeLabyrinth"
+        "provider": "github",
+        "releaseType": "release",
+        "owner": "Raele24",
+        "repo": "PokeLabyrinth"
     },
     "build": {
-      "artifactName": "pokelabyrinth-setup-${version}.${ext}",
-      "appId": "it.raele.pokelabyrinth",
-      "productName": "pokelabyrinth",
-      "win": {
-        "target": [
-          "nsis"
-        ],
-        "icon": "src/assets/images/favicon/logo.ico",
-        "publisherName": "Raele",
-        "verifyUpdateCodeSignature": false
-      },
-      "nsis": {
-        "installerIcon": "src/assets/images/favicon/logo.ico",
-        "uninstallerIcon": "src/assets/images/favicon/logo.ico",
-        "uninstallDisplayName": "pokelabyrinth",
-        "oneClick": false,
-        "allowToChangeInstallationDirectory": true,
-        "createDesktopShortcut": true,
-        "createStartMenuShortcut": true,
-        "shortcutName": "PokeLabyrinth",
-        "runAfterFinish": true,
-        "license": "LICENSE.txt"
-      }
+        "artifactName": "pokelabyrinth-setup-${version}.${ext}",
+        "appId": "it.raele.pokelabyrinth",
+        "productName": "pokelabyrinth",
+        "win": {
+            "target": [
+                "nsis"
+            ],
+            "icon": "src/assets/images/favicon/logo.ico",
+            "publisherName": "Raele",
+            "verifyUpdateCodeSignature": false
+        },
+        "nsis": {
+            "installerIcon": "src/assets/images/favicon/logo.ico",
+            "uninstallerIcon": "src/assets/images/favicon/logo.ico",
+            "uninstallDisplayName": "pokelabyrinth",
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true,
+            "shortcutName": "PokeLabyrinth",
+            "runAfterFinish": true,
+            "license": "LICENSE.txt"
+        }
     },
     "license": "ISC",
     "devDependencies": {
-      "electron": "^27.0.1",
-      "electron-builder": "^24.6.4",
-      "electron-reloader": "^1.2.3"
+        "electron": "^27.0.1",
+        "electron-builder": "^24.6.4",
+        "electron-reloader": "^1.2.3"
     },
     "dependencies": {
-      "electron-log": "^5.0.1",
-      "electron-updater": "^6.1.4",
-      "discord-rpc": "^4.0.1"
+        "chart.js": "^4.4.1",
+        "discord-rpc": "^4.0.1",
+        "electron-log": "^5.0.1",
+        "electron-updater": "^6.1.4"
     }
 }
