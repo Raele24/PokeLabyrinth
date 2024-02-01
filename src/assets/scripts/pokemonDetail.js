@@ -1,5 +1,6 @@
 window.onload = checkPokemonPresence();
 
+let pokemon;
 
 async function checkPokemonPresence() {
     let id = localStorage.getItem("pokemonId");
@@ -7,7 +8,7 @@ async function checkPokemonPresence() {
         window.location.href = "./index.html";
     }
     else {
-        const pokemon = await loadPokemonDetail(id);
+        pokemon = await loadPokemonDetail(id);
         console.log(pokemon);
         createDetailPage(pokemon);
         localStorage.removeItem("pokemonId");
@@ -235,10 +236,3 @@ function getGeneration(id) {
     else return "gen9";
 }
 
-function backToUrl() {
-    if (history.length == 0) {
-        document.location = document.referrer;
-    } else {
-        history.go(-1);
-    }
-}

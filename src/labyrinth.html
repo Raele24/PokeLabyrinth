@@ -75,19 +75,35 @@
         </div>
         <div class="modal-body">
           <form id="settings-config">
-         
+
           </form>
         </div>
       </div>
     </div>
 
-    <canvas id="labyrinth" width="800" height="800"></canvas>
+    <div class="wrapper">
+      <div class="container">
+        <div class="toolbar" id="toolbar">
+          <div class="back-to-url" id="back-to-url" onclick="backToUrl()">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+              <path
+                d="M20.3284 11.0001V13.0001L7.50011 13.0001L10.7426 16.2426L9.32842 17.6568L3.67157 12L9.32842 6.34314L10.7426 7.75735L7.49988 11.0001L20.3284 11.0001Z"
+                fill="black" />
+            </svg>
+          </div>
+        </div>
+
+        <canvas id="labyrinth" width="800" height="800"></canvas>
+
+      </div>
+    </div>
 
   </div>
 
   <div class="footer-bar">
 
-    <div>© <span class="copyright"></span> <a href="#" onclick="eAPI.goto('https://github.com/Raele24')">Raele</a> All Rights Reserved.</div>
+    <div>© <span class="copyright"></span> <a href="#" onclick="eAPI.goto('https://github.com/Raele24')">Raele</a> All
+      Rights Reserved.</div>
 
     <div class="drag"></div>
   </div>
@@ -97,6 +113,7 @@
 <script src="./assets/environment/regions.js"></script>
 <script src="./assets/environment/typeColors.js"></script>
 <script src="./assets/scripts/pokeApiReq.js"></script>
-<script src="./assets/scripts/pokemonService.js"></script>
+<script src="./assets/scripts/generateLab.js" type="module"></script>
+<script src="./assets/scripts/pokeLab.js" type="module"></script>
 
 </html>

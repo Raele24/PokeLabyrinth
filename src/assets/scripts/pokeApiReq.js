@@ -162,3 +162,11 @@ async function getShortPokemonDto(pokemonId) {
     }
     return shortPokemonDto;
 }
+
+function backToUrl() {
+    if (history.length == 0) {
+        document.location = document.referrer;
+    } else {
+        history.go(-1);
+    }
+}
