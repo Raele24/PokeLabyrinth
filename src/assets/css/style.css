@@ -485,3 +485,71 @@ body {
   height: 225px;
   border: #ffffff solid 5px;
 }
+
+.toolbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100px;
+}
+
+.back-to-url{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: fit-content;
+  height: 60px;
+  background-color: #e0d9d9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+  padding: 10px;
+}
+
+.back-to-url svg{
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+}
+
+.go-to-lab{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: fit-content;
+  height: 60px;
+  background-color: #e0d9d9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+  color: #313131;
+  padding: 10px;
+}
+
+.go-to-lab span{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 26px;
+  font-weight: 600;
+  font-family: 'Kanit', sans-serif;
+  cursor: pointer;
+}
+
+.go-to-lab:hover{
+  background-color: rgba(255, 166, 0, 0.707);
+  transition: all 0.3s ease-in-out;
+}
+
+.back-to-url:hover{
+  background-color: rgba(255, 167, 4, 0.707);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}

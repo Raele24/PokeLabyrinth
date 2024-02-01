@@ -225,3 +225,11 @@ function getGeneration(id) {
     else if (id < json.gen9.start) return "gen8";
     else return "gen9";
 }
+
+function backToUrl() {
+    if (history.length == 0) {
+        document.location = document.referrer;
+    } else {
+        history.go(-1);
+    }
+}
