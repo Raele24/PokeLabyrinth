@@ -28,6 +28,7 @@ function goToLabyrinth() {
 
 async function createDetailPage(pokemon) {
     //name------------------------------
+
     let title = document.getElementById("name-title");
     let name = document.getElementById("name");
     let id = document.getElementById("id");
@@ -39,7 +40,7 @@ async function createDetailPage(pokemon) {
     else if (pokemon.id < 100) span.innerHTML = "N° 0" + pokemon.id;
     else span.innerHTML = "N° " + pokemon.id;
     title.appendChild(p);
-    title.appendChild(span);
+    !pokemon.name.includes("-") ? title.appendChild(span) : title.innerHTML += "";
 
     //image-----------------------------
     let left_side = document.getElementById("left-side");
@@ -115,6 +116,10 @@ async function createDetailPage(pokemon) {
             p.innerHTML = pokemon.evolutionLine[i][j].name[0].toUpperCase() + pokemon.evolutionLine[i][j].name.slice(1);
             div.appendChild(img);
             div.appendChild(p);
+            div.addEventListener("click", function () {
+                localStorage.setItem("pokemonId", id);
+                window.location.href = "./pokemonDetail.html";
+            });
             evoContainer.appendChild(div);
             evolutionLine.appendChild(evoContainer);
             if (j < pokemon.evolutionLine[i].length - 1) {
@@ -129,7 +134,9 @@ async function createDetailPage(pokemon) {
     //varieties-----------------------------
     let container = document.createElement("div");
     container.className = "varieties-container";
-    for (let i = 0; i < pokemon.varieties.length; i++) {
+    let i;
+    !pokemon.name.includes("-") ? i = 0 : i = 1;
+    for (; i < pokemon.varieties.length; i++) {
         let div = document.createElement("div");
         div.className = "evo";
         let img = document.createElement("img");
@@ -142,6 +149,10 @@ async function createDetailPage(pokemon) {
         p.innerHTML = pokemon.varieties[i].name[0].toUpperCase() + pokemon.varieties[i].name.slice(1);
         div.appendChild(img);
         div.appendChild(p);
+        div.addEventListener("click", function () {
+            localStorage.setItem("pokemonId", id);
+            window.location.href = "./pokemonDetail.html";
+        });
         container.appendChild(div);
     }
     evolutionLine.appendChild(container);
