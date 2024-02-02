@@ -16,7 +16,6 @@ async function checkPokemonPresence() {
 }
 
 async function loadPokemonDetail(id) {
-    console.log(id);
     var regex = /^(00\d|0\d{2})$/;
     if (regex.test(id)) {
         if (id < 10) id = id.split("00")[1];
