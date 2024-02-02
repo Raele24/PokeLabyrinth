@@ -3,6 +3,8 @@ window.onload = checkPokemonPresence();
 let pokemon;
 
 async function checkPokemonPresence() {
+    document.querySelector(".container").style.display = "none";
+    document.getElementById("loading").style.display = "block";
     let id = localStorage.getItem("pokemonId");
     if (id == null) {
         window.location.href = "./index.html";
@@ -223,6 +225,10 @@ async function createDetailPage(pokemon) {
         forms.appendChild(div);
     }
     evolutionLine.appendChild(forms);
+
+    document.querySelector(".container").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+
 }
 
 
