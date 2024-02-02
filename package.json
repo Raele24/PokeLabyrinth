@@ -21,17 +21,25 @@
         "appId": "it.raele.pokelabyrinth",
         "productName": "pokelabyrinth",
         "win": {
-            "target": ["nsis"],
+            "target": [
+                "nsis"
+            ],
             "icon": "src/assets/images/favicon/logo.ico",
             "publisherName": "Raele",
             "verifyUpdateCodeSignature": false
         },
         "mac": {
-            "target": ["dmg"],
+            "target": [
+                "dmg"
+            ],
             "icon": "src/assets/images/favicon/logo.icns"
         },
         "linux": {
-            "target": ["AppImage", "deb", "rpm"],
+            "target": [
+                "AppImage",
+                "deb",
+                "rpm"
+            ],
             "icon": "src/assets/images/favicon/logo.png"
         },
         "nsis": {
@@ -58,6 +66,7 @@
         "chart.js": "^4.4.1",
         "discord-rpc": "^4.0.1",
         "electron-log": "^5.0.1",
-        "electron-updater": "^6.1.4"
+        "electron-updater": "^6.1.4",
+        "three": "^0.161.0"
     }
 }

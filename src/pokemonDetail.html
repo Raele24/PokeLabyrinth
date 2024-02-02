@@ -76,26 +76,34 @@
       </div>
     </div>
 
-    <div class="wrapper">
-      <div class="container">
-        <div class="toolbar" id="toolbar">
-          <div class="back-to-url" id="back-to-url" onclick="backToUrl()">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
-              <path
-                d="M20.3284 11.0001V13.0001L7.50011 13.0001L10.7426 16.2426L9.32842 17.6568L3.67157 12L9.32842 6.34314L10.7426 7.75735L7.49988 11.0001L20.3284 11.0001Z"
-                fill="black" />
-            </svg>
-          </div>
-          <div class="go-to-lab" id="go-to-lab" onclick="goToLabyrinth()">
-            <span>Start Labyrinth</span>
-          </div>
+    <div class="wrapper detail">
+      <div class="toolbar" id="toolbar">
+        <div class="back-to-url" id="back-to-url" onclick="backToUrl()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+            <path
+              d="M20.3284 11.0001V13.0001L7.50011 13.0001L10.7426 16.2426L9.32842 17.6568L3.67157 12L9.32842 6.34314L10.7426 7.75735L7.49988 11.0001L20.3284 11.0001Z"
+              fill="black" />
+          </svg>
         </div>
+        <div class="go-to-lab" id="go-to-lab" onclick="goToLabyrinth()">
+          <span>Start Labyrinth</span>
+        </div>
+      </div>
+      <div class="container">
+
         <div class="name-title" id="name-title">
 
         </div>
 
         <div class="general" id="general">
           <div class="left-side" id="left-side">
+            <div class="left-arrow" id="prev-img" onclick="prevImg()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
+            </div>
+            <div id="pokemon-img"></div>
+            <div class="right-arrow" id="next-img"  onclick="nextImg()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+            </div>
           </div>
 
           <div class="right-side" id="right-side">
@@ -106,19 +114,19 @@
                 <div class="info-list" id="info-list">
                   <div class="info">
                     Height
-                    <p id="height" class="info_value"></p>
+                    <p id="height" class="info-value"></p>
                   </div>
                   <div class="info">
                     Weight
-                    <p id="weight" class="info_value"></p>
+                    <p id="weight" class="info-value"></p>
                   </div>
                   <div class="info">
                     Abilities
-                    <p id="abilities" class="info_value"></p>
+                    <ul id="abilities" class="info-value"></ul>
                   </div>
                   <div class="info">
                     Base Experience
-                    <p id="base_experience" class="info_value"></p>
+                    <p id="base_experience" class="info-value"></p>
                   </div>
                 </div>
                 <div class="description-list" id="description-list">

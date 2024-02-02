@@ -30,7 +30,13 @@ function goToLabyrinth() {
     window.location.href = "./labyrinth.html";
 }
 
+let imgCount = 0;
+let imgList = [];
+let imgage;
+
 async function createDetailPage(pokemon) {
+    imgList = [pokemon.image, pokemon.imageFemale, pokemon.imageShiny, pokemon.imageFemaleShiny, pokemon.gif, pokemon.gifShiny];
+    imgList = imgList.filter(img => img != null);
     //name------------------------------
 
     let title = document.getElementById("name-title");
@@ -47,11 +53,8 @@ async function createDetailPage(pokemon) {
     !(pokemon.id > json.gen9.end) ? title.appendChild(span) : title.innerHTML += "";
 
     //image-----------------------------
-    let left_side = document.getElementById("left-side");
-    let image = document.createElement("div");
-    image.className = "img";
-    image.style.backgroundImage = "url(" + pokemon.image + ")";
-    left_side.appendChild(image);
+    let left_side = document.getElementById("pokemon-img");
+    updateImg(left_side, imgList[imgCount]);
 
     //types-----------------------------
     let types = document.getElementById("types");
@@ -76,6 +79,7 @@ async function createDetailPage(pokemon) {
 
     weight.innerHTML = pokemon.weight ? pokemon.weight / 10 + " kg" : "??? kg";
     height.innerHTML = pokemon.height ? pokemon.height / 10 + " m" : "??? m";
+    
     if (pokemon.abilities.length == 0) {
         let li = document.createElement("li");
         li.innerHTML = "???";
@@ -83,9 +87,10 @@ async function createDetailPage(pokemon) {
     }
     for (let i = 0; i < pokemon.abilities.length; i++) {
         let li = document.createElement("li");
-        li.innerHTML = "● " + pokemon.abilities[i];
+        li.innerHTML = "‣ "+pokemon.abilities[i];
         abilities.appendChild(li);
     }
+    
     base_experience.innerHTML = pokemon.baseExperience ? pokemon.baseExperience + " xp" : "??? xp";
 
     //description-----------------------
@@ -109,6 +114,7 @@ async function createDetailPage(pokemon) {
             let div = document.createElement("div");
             div.className = "evo";
             let img = document.createElement("img");
+            img.draggable = false;
             img.className = "evo-img";
             let id = pokemon.evolutionLine[i][j].id;
             if (id < 10) id = "00" + id;
@@ -142,6 +148,7 @@ async function createDetailPage(pokemon) {
         let div = document.createElement("div");
         div.className = "evo";
         let img = document.createElement("img");
+        img.draggable = false;
         img.className = "varieties-img";
         let id = pokemon.varieties[i].id;
         let imgSrc = await getOfficialArtwork(id);
@@ -166,6 +173,7 @@ async function createDetailPage(pokemon) {
         let div = document.createElement("div");
         div.className = "evo";
         let img = document.createElement("img");
+        img.draggable = false;
         img.className = "forms-img";
         let id = pokemon.forms[i].id;
         let imgSrc = await getFrontDefault(id);
@@ -186,6 +194,24 @@ async function createDetailPage(pokemon) {
         parseInt(typeColors[pokemon.types[0]].substr(-4, 2), 16),
         parseInt(typeColors[pokemon.types[0]].substr(-2), 16)
     ];
+    let color2 = pokemon.types[1] ? [
+        parseInt(typeColors[pokemon.types[1]].substr(-6, 2), 16),
+        parseInt(typeColors[pokemon.types[1]].substr(-4, 2), 16),
+        parseInt(typeColors[pokemon.types[1]].substr(-2), 16)
+    ] : color1;
+
+    document.documentElement.innerHTML += `<style>
+            .hoverBtns:hover {
+                background-color: rgb(${color1[0]},${color1[1]},${color1[2]}, 0.8);
+            }
+
+            .hoverBtns2:hover {
+                background-color: rgb(${color2[0]},${color2[1]},${color2[2]}, 0.8);
+            }
+        </style>`;
+
+    document.getElementById("back-to-url").classList.add('hoverBtns');
+    document.getElementById("go-to-lab").classList.add('hoverBtns2');
     const ctx = document.getElementById('statsChart');
     new Chart(ctx, {
         type: 'bar',
@@ -216,11 +242,13 @@ async function createDetailPage(pokemon) {
                     }
                 }
             },
+            responsive: true,
+            maintainAspectRatio: false
         },
-        responsive: true,
-        maintainAspectRatio: false
     });
 }
+
+
 
 let svgArrow = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"> <path stroke="none" d="M0 0h24v24H0z" fill="none" /> <path d="M9 6l6 6l-6 6" /> </svg>';
 
@@ -238,4 +266,25 @@ function getGeneration(id) {
     else if (id < json.gen9.start) return "gen8";
     else return "gen9";
 }
+
+function updateImg(left_side, imgSrc) {
+    image = document.createElement("div");
+    image.id="img"
+    image.className = "img";
+    image.style.backgroundImage = "url(" + imgSrc + ")";
+    left_side.appendChild(image);
+}
+
+function nextImg() {
+    imgCount = (imgCount + 1) % imgList.length;
+    document.getElementById("img").remove();
+    updateImg(document.getElementById("pokemon-img"), imgList[imgCount]);
+};
+
+function prevImg() {
+    imgCount = (imgCount - 1 + imgList.length) % imgList.length;
+    document.getElementById("img").remove();
+    updateImg(document.getElementById("pokemon-img"), imgList[imgCount]);
+};
+
 

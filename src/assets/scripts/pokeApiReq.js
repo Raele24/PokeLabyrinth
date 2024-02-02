@@ -30,6 +30,7 @@ async function createPokemonDto(pokemon) {
         image: pokemon.sprites.other['official-artwork'].front_default ? pokemon.sprites.other['official-artwork'].front_default : pokemon.sprites.other['home'].front_default,
         imageShiny: pokemon.sprites.other['official-artwork'].front_shiny ? pokemon.sprites.other['official-artwork'].front_shiny : pokemon.sprites.other['home'].front_shiny,
         imageFemale: pokemon.sprites.other['home'].front_female ? pokemon.sprites.other['home'].front_female : null,
+        imageFemaleShiny: pokemon.sprites.other['home'].front_female_shiny ? pokemon.sprites.other['home'].front_female_shiny : null,
         gif: pokemon.sprites.other.showdown.front_default,
         gifShiny: pokemon.sprites.other.showdown.front_shiny,
         types: pokemon.types.map(type => type.type.name),
@@ -48,7 +49,8 @@ async function createPokemonDto(pokemon) {
         varieties,
         forms,
         descriptionEn,
-        descriptionIt
+        descriptionIt,
+        selectedImg: null,
 
     }
     return pokemonDto;
