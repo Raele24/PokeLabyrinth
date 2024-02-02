@@ -83,7 +83,7 @@ const createWindow = () => {
     });
 
     mainWindow.on("ready-to-show", () => {
-        mainWindow.webContents.openDevTools();
+        mainWindow.webContents.openDevTools();  // Open DevTools
     });
 
 }

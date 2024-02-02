@@ -21,12 +21,18 @@
         "appId": "it.raele.pokelabyrinth",
         "productName": "pokelabyrinth",
         "win": {
-            "target": [
-                "nsis"
-            ],
+            "target": ["nsis"],
             "icon": "src/assets/images/favicon/logo.ico",
             "publisherName": "Raele",
             "verifyUpdateCodeSignature": false
+        },
+        "mac": {
+            "target": ["dmg"],
+            "icon": "src/assets/images/favicon/logo.icns"
+        },
+        "linux": {
+            "target": ["AppImage", "deb", "rpm"],
+            "icon": "src/assets/images/favicon/logo.png"
         },
         "nsis": {
             "installerIcon": "src/assets/images/favicon/logo.ico",
@@ -34,6 +40,7 @@
             "uninstallDisplayName": "pokelabyrinth",
             "oneClick": false,
             "allowToChangeInstallationDirectory": true,
+            "perMachine": true,
             "createDesktopShortcut": true,
             "createStartMenuShortcut": true,
             "shortcutName": "PokeLabyrinth",

@@ -16,8 +16,12 @@ async function checkPokemonPresence() {
 }
 
 async function loadPokemonDetail(id) {
-    if (id < 10) id = id.split("00")[1];
-    else if (id < 100) id = id.slice(1);
+    console.log(id);
+    var regex = /^(00\d|0\d{2})$/;
+    if (regex.test(id)) {
+        if (id < 10) id = id.split("00")[1];
+        else if (id < 100) id = id.slice(1);
+    }
     let response = await getPokemonById(id);
     return response;
 }
@@ -135,7 +139,7 @@ async function createDetailPage(pokemon) {
     //varieties-----------------------------
     let container = document.createElement("div");
     container.className = "varieties-container";
-    for (let i=0; i < pokemon.varieties.length; i++) {
+    for (let i = 0; i < pokemon.varieties.length; i++) {
         let div = document.createElement("div");
         div.className = "evo";
         let img = document.createElement("img");
