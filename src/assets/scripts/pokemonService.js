@@ -26,7 +26,7 @@ window.onload = function () {
 }
 
 window.onpageshow = function () {
-  selectedGen.value = localStorage.getItem("gen");
+  selectedGen.value = localStorage.getItem("gen") || "gen1";
   loadPokemon();
 }
 
@@ -37,12 +37,11 @@ function loadPokemon() {
 
   let gen = selectedGen.value;
   let genName = generationsNames[gen];
-  let imgRegion = document.createElement("img");
-  imgRegion.src = "./assets/images/regions/" + generationsRegions[gen] + ".png";
-  region.appendChild(imgRegion);
-  let nameRegion = document.createElement("h3");
-  nameRegion.innerHTML = generationsRegions[gen];
-  region.appendChild(nameRegion);
+
+  region.innerHTML += `
+    <div class="region-image" style="background-image: url('./assets/images/regions/${generationsRegions[gen]}.png')"></div>
+    <h3>${generationsRegions[gen]}</h3>
+  `;
 
   genName.start = parseInt(genName.start);
   genName.end = parseInt(genName.end);  //parse needed for 999+ pokemon
@@ -89,6 +88,10 @@ function openPokemonDetail(id) {
 async function loadShortDetail(pokemonName, pokemonTypes, pokemonId, i, overlay) {
   if(overlay.hasChildNodes()) return; 
   let descriptionElment = document.createElement("div");
+  let loading = document.createElement("div");
+  loading.className = "loading";
+  overlay.appendChild(loading);
+  descriptionElment.style.display = "none";
   descriptionElment.id = "description";
   descriptionElment.className = "description";
   overlay.appendChild(descriptionElment)
@@ -128,6 +131,8 @@ async function loadShortDetail(pokemonName, pokemonTypes, pokemonId, i, overlay)
     typeElement.innerHTML = pokemonTypes[i];
     descriptionElment.appendChild(typeElement);
   }
+  descriptionElment.style.display = "block";
+  loading.style.display = "none";
 }
 
 

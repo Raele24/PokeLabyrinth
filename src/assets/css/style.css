@@ -41,31 +41,38 @@ body {
   border-radius: 15px;
 }
 
+.wrapper.detail .container {
+  margin-top: 0;
+}
+
+.wrapper.lab .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .title {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   font-size: 34px;
-  font-family: 'Pokemon Solid', sans-serif;
+  font-family: "Pokemon Solid", sans-serif;
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
- 
 }
 
 .title h1 {
   margin: 0;
   padding: 0;
-  letter-spacing: 9px;
-  background: -webkit-linear-gradient(#ff0000, #ff5252);
+  font-size: 5vw;
+  letter-spacing: 1vw;
+  background: linear-gradient(#ff0000 60%, #000000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.377);
+  text-shadow: 0 0 13px rgb(0 0 0 / 48%);
 }
-
-
-
 
 .settings {
   display: flex;
@@ -73,20 +80,19 @@ body {
   margin: 0 auto;
   width: 100%;
   max-width: 80%;
-  padding: 0 20px;
   justify-content: right;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.left{
+.left {
   width: 50%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.right{
+.right {
   width: 50%;
   display: flex;
   justify-content: flex-end;
@@ -99,19 +105,19 @@ body {
   margin-top: 20px;
   font-size: 20px;
   font-weight: 600;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   padding: 10px;
   border-radius: 10px;
   float: right;
   margin-left: 1%;
 }
 
-.region{
+.region {
   background-color: #313131;
   color: white;
   font-size: 20px;
   font-weight: 600;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   padding: 10px;
   border-radius: 10px;
   margin-top: 20px;
@@ -123,13 +129,13 @@ body {
   flex-direction: row;
 }
 
-.region img{
-  width: 100%;
-  height: 100%;
+.region .region-image {
+  width: 90px;
+  height: 65px;
   margin-right: 10px;
+  background-position: center;
+  background-size: cover;
 }
-
-
 
 .pokeList {
   display: flex;
@@ -138,8 +144,6 @@ body {
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  max-width: 80%;
-  padding: 0 20px;
 }
 
 .singlePokemon {
@@ -159,11 +163,15 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #f1ececef;
+  background-color: rgba(255, 255, 255, 70%);
+  backdrop-filter: blur(3px);
   overflow: hidden;
   width: 100%;
   height: 0;
   transition: 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .singlePokemon:hover .overlay {
@@ -183,20 +191,19 @@ body {
 .name {
   font-size: 24px;
   font-weight: 600;
-  font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
   margin-bottom: 20%;
 }
 
 .id {
   font-size: 20px;
   font-weight: 600;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   background-color: #a69a9a86;
   border-radius: 5px;
   padding: 5px;
   width: fit-content;
   margin: 0 auto 0 auto;
-
 }
 
 .type {
@@ -206,36 +213,36 @@ body {
   margin-bottom: 30px;
   margin-left: 5px;
   margin-right: 5px;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   border-radius: 10px;
   padding: 12px;
 }
 
 /* details page */
 
-.name-title{
+.name-title {
   font-size: 34px;
   font-weight: 600;
-  font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;  
+  background-color: white;
   border-radius: 50px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
 }
 
-.name-title p{
+.name-title p {
   color: #313131;
 }
 
-.name-title span{
+.name-title span {
   margin-left: 10px;
   color: #5c555586;
 }
 
-.general{
+.general {
   height: 600px;
   display: flex;
   flex-direction: row;
@@ -250,33 +257,32 @@ body {
   float: left;
 }
 
-.general .left-side #pokemon-img{
+.general .left-side #pokemon-img {
   width: 100%;
   height: 100%;
 }
 
-.general .left-side .left-arrow{
+.general .left-side .left-arrow {
   cursor: pointer;
 }
 
-.general .left-side .left-arrow svg{
-  width: 50px;
-  height: 50px;  
-  stroke: #000;
-}
-
-.general .left-side .right-arrow{
-  cursor: pointer;
-}
-
-.general .left-side .right-arrow svg{
+.general .left-side .left-arrow svg {
   width: 50px;
   height: 50px;
   stroke: #000;
 }
 
+.general .left-side .right-arrow {
+  cursor: pointer;
+}
 
-.general .right-side{
+.general .left-side .right-arrow svg {
+  width: 50px;
+  height: 50px;
+  stroke: #000;
+}
+
+.general .right-side {
   width: 50%;
   display: flex;
   justify-content: center;
@@ -285,7 +291,7 @@ body {
   float: right;
 }
 
-.left-side .img{
+.left-side .img {
   width: 100%;
   height: 100%;
   background-size: contain;
@@ -293,7 +299,7 @@ body {
   background-position: center;
 }
 
-.right-side .types{
+.right-side .types {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -301,18 +307,17 @@ body {
   height: 20%;
 }
 
-.right-side .types .pk-type{
+.right-side .types .pk-type {
   color: white;
   font-size: 24px;
   font-weight: 600;
   margin-left: 5px;
   margin-right: 5px;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   border-radius: 32px;
   padding: 22px;
   background-color: #313131;
 }
-
 
 .right-side .changing {
   height: 80%;
@@ -336,7 +341,8 @@ body {
   transform: rotateY(180deg);
 }
 
-.right-side .changing .info-list, .right-side .changing .description-list{
+.right-side .changing .info-list,
+.right-side .changing .description-list {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -347,13 +353,13 @@ body {
   border-radius: 10px;
 }
 
-.right-side .changing .description-list{
+.right-side .changing .description-list {
   transform: rotateY(180deg);
   top: 0;
   left: 0;
 }
 
-.stats{
+.stats {
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -365,14 +371,15 @@ body {
 .gradient-bar {
   width: 100%;
   height: 20px; /* Altezza della barra */
-  background: linear-gradient(to right, 
-    rgb(0, 0, 0) 0%,        /* Colore al 0% (valore minimo) */
-    rgb(0, 0, 255) 100%      /* Colore al 100% (valore massimo) */
+  background: linear-gradient(
+    to right,
+    rgb(0, 0, 0) 0%,
+    /* Colore al 0% (valore minimo) */ rgb(0, 0, 255) 100%
+      /* Colore al 100% (valore massimo) */
   );
 }
 
-
-.evo-line{
+.evo-line {
   height: fit-content;
   display: flex;
   flex-wrap: wrap;
@@ -390,7 +397,7 @@ body {
   height: 100px;
 }
 
-.evo-container{
+.evo-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -401,11 +408,10 @@ body {
   padding: 10px;
 }
 
-
-.evo p{
+.evo p {
   font-size: 24px;
   font-weight: 600;
-  font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -413,12 +419,12 @@ body {
   margin-top: 10px;
 }
 
-.evo img{
+.evo img {
   background-color: #313131;
   border-radius: 20px;
 }
 
-.info-list{
+.info-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -426,7 +432,7 @@ body {
   color: #313131;
 }
 
-.info-list .info{
+.info-list .info {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -435,7 +441,7 @@ body {
   font-size: 30px;
 }
 
-.description-list{
+.description-list {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -448,12 +454,13 @@ body {
   font-size: 1.2vw;
 }
 
-.description-list h3{
+.description-list h3 {
   font-size: 28px;
   font-weight: 600;
 }
 
-.info-value, .info ul li{
+.info-value,
+.info ul li {
   font-size: 1.5vw;
   font-weight: 10;
 }
@@ -467,21 +474,22 @@ body {
   padding: 0;
 }
 
-.info ul li{
+.info ul li {
   display: flex;
   align-items: flex-start;
 }
 
-.stats{
+.stats {
   position: relative;
-  height:40vh; width:70vw;
+  height: 40vh;
+  width: 70vw;
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.varieties-container{
+.varieties-container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -492,14 +500,14 @@ body {
   padding: 15px;
 }
 
-.varieties-img{
+.varieties-img {
   width: 225px;
   height: 225px;
   border: #ffffff solid 5px;
   transition: all 0.3s ease-in-out;
 }
 
-.forms-container{
+.forms-container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -510,20 +518,20 @@ body {
   padding: 15px;
 }
 
-.forms-img{
+.forms-img {
   width: 225px;
   height: 225px;
   border: #000 solid 2px;
 }
 
-.evo-img{
+.evo-img {
   width: 225px;
   height: 225px;
   border: #ffffff solid 5px;
   transition: all 0.3s ease-in-out;
 }
 
-.toolbar{
+.toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -534,7 +542,11 @@ body {
   padding: 40px;
 }
 
-.back-to-url{
+.wrapper.detail .toolbar {
+  padding: 20px;
+}
+
+.back-to-url {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -549,13 +561,13 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-.back-to-url svg{
+.back-to-url svg {
   width: 45px;
   height: 45px;
   cursor: pointer;
 }
 
-.go-to-lab{
+.go-to-lab {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -571,7 +583,7 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-.go-to-lab span{
+.go-to-lab span {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -579,20 +591,60 @@ body {
   flex-wrap: wrap;
   font-size: 26px;
   font-weight: 600;
-  font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
   cursor: pointer;
 }
 
-
-.evo-img:hover{
-  cursor: pointer;
-  transform: scale(1.1);
-  
-}
-
-.varieties-img:hover{
+.evo-img:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
 
+.varieties-img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
 
+.loading {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  background: linear-gradient(to bottom, rgb(254, 0, 1) 50%, white 50%);
+  border-radius: 50%;
+  border: 4px solid black;
+  animation: spin 1s linear infinite;
+}
+
+.loading::before {
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 50px;
+  background: black;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  height: 19px;
+  width: 19px;
+  border-radius: 50%;
+  background: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: inset 0 0 0 4px black, inset 0 0 0 5px white,
+    inset 0 0 0 6px black;
+}
+
+/* Spin Animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

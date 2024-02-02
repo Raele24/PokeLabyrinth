@@ -21,7 +21,7 @@ function placePokemonAtStart(pokemon) {
      const start = nodeMatrix[0][0];
      const end = nodeMatrix[rawMaze.length - 1][rawMaze.length - 1];
      const pokemonImg = new Image();
-     pokemonImg.src = pokemon.image;
+     pokemonImg.src = pokemon.selectedImg;
      pokemonImg.onload = function () {
          ctx.drawImage(pokemonImg,0,0, dim , dim);
      }

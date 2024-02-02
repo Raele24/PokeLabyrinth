@@ -26,6 +26,7 @@ async function loadPokemonDetail(id) {
 }
 
 function goToLabyrinth() {
+    pokemon.selectedImg = imgList[imgCount];
     localStorage.setItem("pokemon", JSON.stringify(pokemon));
     window.location.href = "./labyrinth.html";
 }
@@ -103,90 +104,6 @@ async function createDetailPage(pokemon) {
     descriptionEn.appendChild(descriptionTitle);
     descriptionEn.innerHTML += pokemon.descriptionEn;
 
-    //evolution line--------------------
-    let evolutionLine = document.getElementById("evo-line");
-    for (let i = 0; i < pokemon.evolutionLine.length; i++) {
-        let evoContainer = document.createElement("div");
-        evoContainer.className = "evo-container";
-        for (let j = 0; j < pokemon.evolutionLine[i].length; j++) {
-            let div = document.createElement("div");
-            div.className = "evo";
-            div.id = "evo" + i + j;
-            let img = document.createElement("img");
-            img.draggable = false;
-            img.className = "evo-img";
-            let id = pokemon.evolutionLine[i][j].id;
-            if (id < 10) id = "00" + id;
-            else if (id < 100) id = "0" + id;
-            let gen = getGeneration(id);
-            img.src = "./assets/images/pokedex/" + gen + "/" + id + ".png";
-            let p = document.createElement("p");
-            p.className = "name";
-            p.innerHTML = pokemon.evolutionLine[i][j].name[0].toUpperCase() + pokemon.evolutionLine[i][j].name.slice(1);
-            div.appendChild(img);
-            div.appendChild(p);
-            div.addEventListener("click", function () {
-                localStorage.setItem("pokemonId", id);
-                window.location.href = "./pokemonDetail.html";
-            });
-            evoContainer.appendChild(div);
-            evolutionLine.appendChild(evoContainer);
-            if (j < pokemon.evolutionLine[i].length - 1) {
-                let arrow = document.createElement("div");
-                arrow.className = "arrow";
-                arrow.innerHTML = svgArrow;
-                evoContainer.appendChild(arrow);
-            }
-        }
-    }
-
-    //varieties-----------------------------
-    let container = document.createElement("div");
-    container.className = "varieties-container";
-    for (let i = 0; i < pokemon.varieties.length; i++) {
-        let div = document.createElement("div");
-        div.className = "evo";
-        let img = document.createElement("img");
-        img.draggable = false;
-        img.className = "varieties-img";
-        let id = pokemon.varieties[i].id;
-        let imgSrc = await getOfficialArtwork(id);
-        img.src = imgSrc;
-        let p = document.createElement("p");
-        p.className = "name";
-        p.innerHTML = pokemon.varieties[i].name[0].toUpperCase() + pokemon.varieties[i].name.slice(1);
-        div.appendChild(img);
-        div.appendChild(p);
-        div.addEventListener("click", function () {
-            localStorage.setItem("pokemonId", id);
-            window.location.href = "./pokemonDetail.html";
-        });
-        container.appendChild(div);
-    }
-    evolutionLine.appendChild(container);
-
-    //forms-----------------------------
-    let forms = document.createElement("div");
-    forms.className = "forms-container";
-    for (let i = 0; i < pokemon.forms.length; i++) {
-        let div = document.createElement("div");
-        div.className = "evo";
-        let img = document.createElement("img");
-        img.draggable = false;
-        img.className = "forms-img";
-        let id = pokemon.forms[i].id;
-        let imgSrc = await getFrontDefault(id);
-        img.src = imgSrc ? imgSrc : "./assets/images/404.png";
-        let p = document.createElement("p");
-        p.className = "name";
-        p.innerHTML = pokemon.forms[i].name[0].toUpperCase() + pokemon.forms[i].name.slice(1);
-        div.appendChild(img);
-        div.appendChild(p);
-        forms.appendChild(div);
-    }
-    evolutionLine.appendChild(forms);
-
-
     //stats-----------------------------
     let color1 = [
         parseInt(typeColors[pokemon.types[0]].substr(-6, 2), 16),
@@ -246,8 +163,73 @@ async function createDetailPage(pokemon) {
         }
     });
 
+    //evolution line--------------------
+    let evolutionLine = document.getElementById("evo-line");
+    for (let i = 0; i < pokemon.evolutionLine.length; i++) {
+        let evoContainer = document.createElement("div");
+        evoContainer.className = "evo-container";
+        for (let j = 0; j < pokemon.evolutionLine[i].length; j++) {
+            let id = pokemon.evolutionLine[i][j].id;
+            if (id < 10) id = "00" + id;
+            else if (id < 100) id = "0" + id;
+            let gen = getGeneration(id);
+            evoContainer.innerHTML += `
+                <div class="evo" id="evo${i}${j}" onclick="goTo(${id})">
+                    <img class="evo-img" draggable="false" src="./assets/images/pokedex/${gen}/${id}.png">
+                    <p class="name">${pokemon.evolutionLine[i][j].name[0].toUpperCase() + pokemon.evolutionLine[i][j].name.slice(1)}</p>
+                </div>`;
+            evolutionLine.appendChild(evoContainer);
+            if (j < pokemon.evolutionLine[i].length - 1) {
+                let arrow = document.createElement("div");
+                arrow.className = "arrow";
+                arrow.innerHTML = svgArrow;
+                evoContainer.appendChild(arrow);
+            }
+        }
+    }
+
+    //varieties-----------------------------
+    let container = document.createElement("div");
+    container.className = "varieties-container";
+    for (let i = 0; i < pokemon.varieties.length; i++) {
+        let id = pokemon.varieties[i].id;
+        let imgSrc = await getOfficialArtwork(id);
+        img.src = imgSrc;
+        container.innerHTML +=  `
+                <div class="evo" id="varieties${i}" onclick="goTo(${id})">
+                    <img class="varieties-img" draggable="false" src="${imgSrc}">
+                    <p class="name">${pokemon.varieties[i].name[0].toUpperCase() + pokemon.varieties[i].name.slice(1)}</p>
+                </div>`;
+    }
+    evolutionLine.appendChild(container);
+
+    //forms-----------------------------
+    let forms = document.createElement("div");
+    forms.className = "forms-container";
+    for (let i = 0; i < pokemon.forms.length; i++) {
+        let div = document.createElement("div");
+        div.className = "evo";
+        let img = document.createElement("img");
+        img.draggable = false;
+        img.className = "forms-img";
+        let id = pokemon.forms[i].id;
+        let imgSrc = await getFrontDefault(id);
+        img.src = imgSrc ? imgSrc : "./assets/images/404.png";
+        let p = document.createElement("p");
+        p.className = "name";
+        p.innerHTML = pokemon.forms[i].name[0].toUpperCase() + pokemon.forms[i].name.slice(1);
+        div.appendChild(img);
+        div.appendChild(p);
+        forms.appendChild(div);
+    }
+    evolutionLine.appendChild(forms);
 }
 
+
+function goTo(id) {
+    localStorage.setItem("pokemonId", id);
+    window.location.href = "./pokemonDetail.html";
+}
 
 
 let svgArrow = '<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"> <path stroke="none" d="M0 0h24v24H0z" fill="none" /> <path d="M9 6l6 6l-6 6" /> </svg>';
