@@ -264,6 +264,11 @@ body {
 
 .general .left-side .left-arrow {
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  border-radius: 50%;
 }
 
 .general .left-side .left-arrow svg {
@@ -274,12 +279,27 @@ body {
 
 .general .left-side .right-arrow {
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  border-radius: 50%;
 }
 
 .general .left-side .right-arrow svg {
   width: 50px;
   height: 50px;
   stroke: #000;
+}
+
+.general .left-side .right-arrow:hover{
+  transform: scale(1.1);
+  background-color: #e0d9d9;
+}
+
+.general .left-side .left-arrow:hover{
+  transform: scale(1.1);
+  background-color: #e0d9d9;
 }
 
 .general .right-side {
@@ -366,17 +386,6 @@ body {
   flex-direction: column;
   color: #313131;
   margin-bottom: 2%;
-}
-
-.gradient-bar {
-  width: 100%;
-  height: 20px; /* Altezza della barra */
-  background: linear-gradient(
-    to right,
-    rgb(0, 0, 0) 0%,
-    /* Colore al 0% (valore minimo) */ rgb(0, 0, 255) 100%
-      /* Colore al 100% (valore massimo) */
-  );
 }
 
 .evo-line {
