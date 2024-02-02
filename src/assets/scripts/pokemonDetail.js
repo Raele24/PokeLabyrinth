@@ -32,13 +32,11 @@ function goToLabyrinth() {
 
 let imgCount = 0;
 let imgList = [];
-let imgage;
 
 async function createDetailPage(pokemon) {
     imgList = [pokemon.image, pokemon.imageFemale, pokemon.imageShiny, pokemon.imageFemaleShiny, pokemon.gif, pokemon.gifShiny];
     imgList = imgList.filter(img => img != null);
     //name------------------------------
-
     let title = document.getElementById("name-title");
     let name = document.getElementById("name");
     let id = document.getElementById("id");
@@ -113,6 +111,7 @@ async function createDetailPage(pokemon) {
         for (let j = 0; j < pokemon.evolutionLine[i].length; j++) {
             let div = document.createElement("div");
             div.className = "evo";
+            div.id = "evo" + i + j;
             let img = document.createElement("img");
             img.draggable = false;
             img.className = "evo-img";
@@ -244,8 +243,9 @@ async function createDetailPage(pokemon) {
             },
             responsive: true,
             maintainAspectRatio: false
-        },
+        }
     });
+
 }
 
 
