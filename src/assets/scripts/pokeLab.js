@@ -2,15 +2,17 @@ import * as labUtils from './generateLab.js';
 
 const nodeMatrix = labUtils.nodeMatrix;
 const rawMaze = labUtils.rawMaze;
-const solution = labUtils.solution;
-const canvas = labUtils.canvas;
 const ctx = labUtils.ctx;
 const dim = labUtils.dim;
+const start = nodeMatrix[0][0];
+const end = nodeMatrix[rawMaze.length - 1][rawMaze.length - 1];
+const pokemonImg = new Image();
+window.onload = pokemonPresence();
 
 function pokemonPresence() {
     const pokemon = JSON.parse(localStorage.getItem("pokemon"));
     if (pokemon == null) {
-        window.location.href = "./index.html";
+        backToUrl();
     }
     else {
         placePokemonAtStart(pokemon);
@@ -18,13 +20,90 @@ function pokemonPresence() {
 }
 
 function placePokemonAtStart(pokemon) {
-     const start = nodeMatrix[0][0];
-     const end = nodeMatrix[rawMaze.length - 1][rawMaze.length - 1];
-     const pokemonImg = new Image();
-     pokemonImg.src = pokemon.selectedImg;
-     pokemonImg.onload = function () {
-         ctx.drawImage(pokemonImg,0,0, dim , dim);
-     }
+    pokemonImg.src = pokemon.selectedImg;
+    pokemonImg.onload = function () {
+        ctx.drawImage(pokemonImg, 0, 0, dim, dim);
+    }
 }
 
-window.onload = pokemonPresence();
+let currentNode = { node: start, row: 0, col: 0 };
+let lastNode = { node: start, row: 0, col: 0 };
+
+document.onkeydown = function (e) {
+    switch (e.key) {
+        case "ArrowUp":
+            movePokemon(currentNode, "Up");
+            break;
+        case "ArrowDown":
+            movePokemon(currentNode, "Down");
+            break;
+        case "ArrowLeft":
+            movePokemon(currentNode, "Left");
+            break;
+        case "ArrowRight":
+            movePokemon(currentNode, "Right");
+            break;
+    }
+};
+
+function movePokemon(currentNode, direction) {
+    lastNode.node = currentNode.node;
+    lastNode.row = currentNode.row; 
+    lastNode.col = currentNode.col;
+    console.log(lastNode);
+    switch (direction) {
+        case "Up":
+            if (currentNode.node.hasNorthWall == false) {
+                currentNode.node = nodeMatrix[currentNode.row - 1][currentNode.col];
+                currentNode.row -= 1;
+            }
+            else {
+                return;
+            };
+            break;
+        case "Down":
+            if (currentNode.node.hasSouthWall == false) {
+                currentNode.node = nodeMatrix[currentNode.row + 1][currentNode.col];
+                currentNode.row += 1;
+            }
+            else {
+                return;
+            };
+            break;
+        case "Left":
+            if (currentNode.node.hasWestWall == false) {
+                currentNode.node = nodeMatrix[currentNode.row][currentNode.col - 1];
+                currentNode.col -= 1;
+            }
+            else {
+                return;
+            };
+            break;
+        case "Right":
+            if (currentNode.node.hasEastWall == false) {
+                currentNode.node = nodeMatrix[currentNode.row][currentNode.col + 1];
+                currentNode.col += 1;
+            }
+            else {
+                return;
+            };
+            break;
+    }
+    
+    
+    if (currentNode.node == end) {
+        alert("You have found the exit!");
+        labUtils.showSolution();
+    }else{
+        ctx.clearRect(lastNode.col * dim, lastNode.row * dim, dim, dim);
+        labUtils.updateMaze();
+        ctx.drawImage(pokemonImg, currentNode.col * dim, currentNode.row * dim, dim, dim);
+    }
+
+
+
+
+}
+
+
+

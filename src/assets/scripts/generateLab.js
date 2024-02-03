@@ -16,7 +16,15 @@ algernon.renderRawMazeToCanvas(ctx, dim, rawMaze);  //generate lab (optional val
 
 const nodeMatrix = algernon.convertRawToNodeMatrix(rawMaze);
 
-export {nodeMatrix, rawMaze, solution, canvas, ctx, dim}; 
+function updateMaze(){
+    algernon.renderRawMazeToCanvas(ctx, dim, rawMaze);
+}
+
+function showSolution(){
+    algernon.renderRawMazeToCanvas(ctx, dim, rawMaze, solution);
+}
+
+export {nodeMatrix, rawMaze, solution, canvas, ctx, dim, updateMaze, showSolution}; 
 
 
 
