@@ -1,5 +1,10 @@
 const API_URL = 'https://pokeapi.co/api/v2/pokemon';
 
+/**
+ * Retrieves information about a specific Pokemon from the PokeAPI.
+ * @param {string} pokemonName - The name of the Pokemon to retrieve.
+ * @returns {Promise<Object>} - A promise that resolves to the Pokemon data.
+ */
 async function getPokemon(pokemonName) {
     const response = await fetch(`${API_URL}/${pokemonName}`);
     const pokemon = await response.json();
@@ -7,6 +12,11 @@ async function getPokemon(pokemonName) {
     return result;
 }
 
+/**
+ * Retrieves a Pokemon by its ID from the PokeAPI.
+ * @param {number} pokemonId - The ID of the Pokemon to retrieve.
+ * @returns {Promise<Object>} - A promise that resolves to the Pokemon object.
+ */
 async function getPokemonById(pokemonId) {
     const response = await fetch(`${API_URL}/${pokemonId}`);
     const pokemon = await response.json();
@@ -14,8 +24,12 @@ async function getPokemonById(pokemonId) {
     return result;
 }
 
+/**
+ * Creates a Pokemon DTO (Data Transfer Object) based on the given Pokemon object.
+ * @param {Object} pokemon - The Pokemon object.
+ * @returns {Object} - The Pokemon DTO.
+ */
 async function createPokemonDto(pokemon) {
-
     const evolutionLine = await getEvolutionChainComplete(pokemon);
     const descriptionEn = await getPokemonDescriptionEnglish(pokemon);
     const descriptionIt = await getPokemonDescriptionItalian(pokemon);
@@ -56,6 +70,11 @@ async function createPokemonDto(pokemon) {
     return pokemonDto;
 }
 
+/**
+ * Retrieves the official artwork URL for a given Pokemon ID.
+ * @param {number} id - The ID of the Pokemon.
+ * @returns {string} - The URL of the official artwork.
+ */
 async function getOfficialArtwork(id) {
     const response = await fetch(`${API_URL}/${id}`);
     const pokemon = await response.json();
@@ -63,6 +82,11 @@ async function getOfficialArtwork(id) {
     return result;
 }
 
+/**
+ * Retrieves the front default sprite URL for a given Pokemon ID from the PokeAPI.
+ * @param {number} id - The ID of the Pokemon.
+ * @returns {string|null} - The URL of the front default sprite, or null if not found.
+ */
 async function getFrontDefault(id) {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon-form/"+id+"/");
     const pokemon = await response.json();
@@ -70,6 +94,11 @@ async function getFrontDefault(id) {
     return result;
 }
 
+/**
+ * Retrieves all forms of a given Pokemon.
+ * @param {Object} pokemon - The Pokemon object.
+ * @returns {Array} - An array of form objects.
+ */
 async function getAllForms(pokemon) {
     let forms = [];
     const result = pokemon.forms.map(form => {
@@ -84,6 +113,12 @@ async function getAllForms(pokemon) {
 }
 
 
+/**
+ * Retrieves the complete evolution chain for a given Pokemon.
+ * it uses a recursive function to extract the evolution chain from the response.
+ * @param {Object} pokemon - The Pokemon object.
+ * @returns {Array} - The unique evolution lines of the Pokemon.
+ */
 async function getEvolutionChainComplete(pokemon) {
     const evolutionChain1 = await getEvolutionChain(pokemon.species.url);
     const evolutionChain = await getEvolutionChain(evolutionChain1.evolution_chain.url);
@@ -117,12 +152,23 @@ async function getEvolutionChainComplete(pokemon) {
 
     return uniqueEvolutionLines;
 }
+
+/**
+ * Fetches the evolution chain data from the specified URL.
+ * @param {string} url - The URL to fetch the evolution chain data from.
+ * @returns {Promise<Object>} - A promise that resolves to the evolution chain data.
+ */
 async function getEvolutionChain(url) {
     const response = await fetch(url);
     const evolutionChain = await response.json();
     return evolutionChain;
 }
 
+/**
+ * Retrieves all varieties of a given Pokemon.
+ * @param {Object} pokemon - The Pokemon object.
+ * @returns {Array} - An array of varieties, each containing the name, URL, and ID of the Pokemon.
+ */
 async function getAllVarieties(pokemon) {
     let varietiesList = [];
     const response = await getEvolutionChain(pokemon.species.url);
@@ -137,6 +183,11 @@ async function getAllVarieties(pokemon) {
     return varietiesList;
 }
 
+/**
+ * Retrieves the English description of a given Pokemon.
+ * @param {Object} pokemon - The Pokemon object.
+ * @returns {Promise<string>} The English description of the Pokemon.
+ */
 async function getPokemonDescriptionEnglish(pokemon) {
     const response = await fetch(pokemon.species.url);
     const species = await response.json();
@@ -145,6 +196,11 @@ async function getPokemonDescriptionEnglish(pokemon) {
     return description.flavor_text;
 }
 
+/**
+ * Retrieves the Italian description of a Pokemon.
+ * @param {Object} pokemon - The Pokemon object.
+ * @returns {Promise<string>} The Italian description of the Pokemon, or "Non disponibile" if not available.
+ */
 async function getPokemonDescriptionItalian(pokemon) {
     const response = await fetch(pokemon.species.url);
     const species = await response.json();
@@ -154,6 +210,11 @@ async function getPokemonDescriptionItalian(pokemon) {
 }
 
 
+/**
+ * Retrieves a short Pokemon DTO (Data Transfer Object) based on the provided Pokemon ID.
+ * @param {number} pokemonId - The ID of the Pokemon.
+ * @returns {Promise<Object>} - A Promise that resolves to a short Pokemon DTO.
+ */
 async function getShortPokemonDto(pokemonId) {
     const response = await fetch(`${API_URL}/${pokemonId}`);
     const pokemon = await response.json();
@@ -165,6 +226,9 @@ async function getShortPokemonDto(pokemonId) {
     return shortPokemonDto;
 }
 
+/**
+ * Navigates back to the previous URL in the browser history.
+ */
 function backToUrl() {
     if (history.length == 0) {
         document.location = document.referrer;
