@@ -27,7 +27,6 @@ function placePokemonAtStart(pokemon) {
 }
 
 let currentNode = { node: start, row: 0, col: 0 };
-let lastNode = { node: start, row: 0, col: 0 };
 
 document.onkeydown = function (e) {
     switch (e.key) {
@@ -47,10 +46,6 @@ document.onkeydown = function (e) {
 };
 
 function movePokemon(currentNode, direction) {
-    lastNode.node = currentNode.node;
-    lastNode.row = currentNode.row; 
-    lastNode.col = currentNode.col;
-    console.log(lastNode);
     switch (direction) {
         case "Up":
             if (currentNode.node.hasNorthWall == false) {
@@ -95,7 +90,6 @@ function movePokemon(currentNode, direction) {
         alert("You have found the exit!");
         labUtils.showSolution();
     }else{
-        ctx.clearRect(lastNode.col * dim, lastNode.row * dim, dim, dim);
         labUtils.updateMaze();
         ctx.drawImage(pokemonImg, currentNode.col * dim, currentNode.row * dim, dim, dim);
     }

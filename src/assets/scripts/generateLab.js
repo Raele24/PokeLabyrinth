@@ -6,10 +6,11 @@ const rawMaze = algernon.generateBacktrackingRaw(rows, cols);
 const solution = algernon.solveAStarRaw(rawMaze, [0, 0], [rows - 1, cols - 1]);
 
 const realWidth = getComputedStyle(document.querySelector(".container")).width;
+const realHeight = getComputedStyle(document.querySelector(".container")).height;
 const canvas = document.getElementById("labyrinth");
-const finalWidth = parseInt(realWidth.replace("px", "")) - 40;//(parseInt(realWidth.replace("px", "") % 100));
-canvas.width = finalWidth;
-canvas.height = finalWidth
+const canvasDim = Math.min(parseInt(realWidth), parseInt(realHeight));
+canvas.width = canvasDim;
+canvas.height = canvasDim;
 const ctx = canvas.getContext("2d");
 const dim = canvas.width / rows;
 algernon.renderRawMazeToCanvas(ctx, dim, rawMaze);  //generate lab (optional value=solution), (20+=size of cell), (rawMaze=lab)
