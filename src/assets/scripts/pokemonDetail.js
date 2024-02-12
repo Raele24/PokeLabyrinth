@@ -344,7 +344,7 @@ function createEvolutionContainer(stage, index) {
 
         // Create HTML for Pokemon in the evolution line
         evoContainer.innerHTML += `
-            <div class="evo" id="evo${index}${j}" onclick="goTo(${id})">
+            <div class="evo" id="evo${index}${j}" onclick="goTo('${id}')">
                 <img class="evo-img" draggable="false" src="./assets/images/pokedex/${gen}/${id}.png">
                 <p class="name">${stage[j].name[0].toUpperCase() + stage[j].name.slice(1)}</p>
             </div>`;
@@ -442,6 +442,7 @@ async function createFormHTML(form, imgSrc) {
  * @param {number} id - The ID of the pokemon.
  */
 function goTo(id) {
+    id = parseInt(id);
     localStorage.setItem("pokemonId", id);
     window.location.href = "./pokemonDetail.html";
 }
