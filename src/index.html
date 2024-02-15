@@ -86,8 +86,12 @@
       <div class="container">
         <div class="title">
           <h1>PokéLabyrinth</h1>
+          <input type="text" id="pokeSearch" placeholder="Search a Pokémon" oninput="searchPoke()">
+          <div id="pokeSearchList" class="dropdown">
+            
+          </div>
         </div>
-    
+        
         <div class="settings">
           <div class="left">
             <div id="region" class="region">
@@ -131,5 +135,6 @@
 <script src="./assets/environment/typeColors.js"></script>
 <script src="./assets/scripts/pokeApiReq.js"></script>
 <script src="./assets/scripts/pokemonService.js"></script>
+<script src="./assets/scripts/pokeSearch.js"></script>
 
 </html>

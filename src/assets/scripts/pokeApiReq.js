@@ -7,6 +7,9 @@ const API_URL = 'https://pokeapi.co/api/v2/pokemon';
  */
 async function getPokemon(pokemonName) {
     const response = await fetch(`${API_URL}/${pokemonName}`);
+    if (!response.ok) {
+        return null;
+    }
     const pokemon = await response.json();
     const result = await createPokemonDto(pokemon);
     return result;
